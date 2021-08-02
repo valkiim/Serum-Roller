@@ -24,13 +24,15 @@ namespace Serum_Roller
             EH = new EffectHandler();
             Die = new Dieroller();
             Loc = new Locationhandler();
+            SerumIDField.Text = "SerumID";
+            SerumFamilySelect.Text = "Choose Colour";
         }
 
         private void RollSerumButton_Click(object sender, EventArgs e)
         {
             string input = SerumFamilySelect.Text;
             sEffect[] results = new sEffect[2];
-            if (input.Equals(""))
+            if (input.Equals("")||input.Equals("Choose Colour"))
             {
                 return;
             }
@@ -53,6 +55,8 @@ namespace Serum_Roller
                 int latent = Die.roll();
                 results = EH.RollResults(input, blatant, latent);
                 SerumIDField.Text = createID(input, blatant, latent);
+                SerumArchive.Items.Add(SerumIDField.Text);
+                AdditionColourSelect.Text = input;
                 ApplySerum(results[0], results[1]);
             }
         }
@@ -120,6 +124,7 @@ namespace Serum_Roller
             {
                 colour = "Invalid";
             }
+            AdditionColourSelect.Text = colour;
 
             // blatant parsing
             if (ID[1].Equals('0'))
@@ -213,6 +218,20 @@ namespace Serum_Roller
             }
             sEffect latent = EH.RollResults(colour, 12, Die.roll())[1];
             LatentEffectList.Items.Add(latent.ToString());
+        }
+
+        private void SerumArchive_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            // When mouse double clicks, show details of selected serum. Nice and simple. 
+            int sel = SerumArchive.SelectedIndex;
+            sEffect[] output = ParseID(SerumArchive.Items[sel].ToString());
+            SerumDetails details = new SerumDetails(SerumArchive.Items[sel].ToString(), output);
+            DialogResult deletserum = details.ShowDialog();
+            if (deletserum == DialogResult.OK)
+            {
+                SerumArchive.Items.RemoveAt(sel);
+            }
+            //else, live a long and happy life
         }
     }
 }

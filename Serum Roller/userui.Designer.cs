@@ -45,6 +45,8 @@ namespace Serum_Roller
             this.Locationlabel = new System.Windows.Forms.Label();
             this.AdditionColourSelect = new System.Windows.Forms.ComboBox();
             this.LocationResultLabel = new System.Windows.Forms.Label();
+            this.SerumArchive = new System.Windows.Forms.ListBox();
+            this.historylabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -234,11 +236,32 @@ namespace Serum_Roller
             this.LocationResultLabel.TabIndex = 13;
             this.LocationResultLabel.Text = "N/A";
             // 
+            // SerumArchive
+            // 
+            this.SerumArchive.FormattingEnabled = true;
+            this.SerumArchive.Location = new System.Drawing.Point(718, 51);
+            this.SerumArchive.Name = "SerumArchive";
+            this.SerumArchive.Size = new System.Drawing.Size(100, 290);
+            this.SerumArchive.TabIndex = 14;
+            this.SerumArchive.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.SerumArchive_MouseDoubleClick);
+            // 
+            // historylabel
+            // 
+            this.historylabel.AutoSize = true;
+            this.historylabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.historylabel.Location = new System.Drawing.Point(718, 27);
+            this.historylabel.Name = "historylabel";
+            this.historylabel.Size = new System.Drawing.Size(100, 20);
+            this.historylabel.TabIndex = 15;
+            this.historylabel.Text = "Prior Serums";
+            // 
             // userui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 415);
+            this.ClientSize = new System.Drawing.Size(831, 415);
+            this.Controls.Add(this.historylabel);
+            this.Controls.Add(this.SerumArchive);
             this.Controls.Add(this.LocationResultLabel);
             this.Controls.Add(this.AdditionColourSelect);
             this.Controls.Add(this.Locationlabel);
@@ -250,6 +273,7 @@ namespace Serum_Roller
             this.Controls.Add(this.SerumFamilySelect);
             this.Controls.Add(this.rollSerumButton);
             this.Controls.Add(this.splitContainer1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "userui";
             this.Text = "Val\'s Serum Roller";
@@ -283,6 +307,8 @@ namespace Serum_Roller
         private System.Windows.Forms.Label Locationlabel;
         private System.Windows.Forms.ComboBox AdditionColourSelect;
         private System.Windows.Forms.Label LocationResultLabel;
+        private System.Windows.Forms.ListBox SerumArchive;
+        private System.Windows.Forms.Label historylabel;
     }
 }
 

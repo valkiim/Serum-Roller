@@ -55,6 +55,12 @@
     <Compile Include="effects\serumEffects.cs" />
     <Compile Include="effects\PinkEffects.cs" />
     <Compile Include="Locationhandler.cs" />
+    <Compile Include="SerumDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SerumDetails.Designer.cs">
+      <DependentUpon>SerumDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="userui.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="SerumDetails.resx">
+      <DependentUpon>SerumDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="userui.resx">
       <DependentUpon>userui.cs</DependentUpon>
     </EmbeddedResource>

@@ -16,7 +16,7 @@ namespace Serum_Roller
             string[] blatantlist = new string[11];
             blatantlist[0] = "The subject's production increases by 20%, they gain the Rat Aspect. Transform a Location at random if already present";
             blatantlist[1] = "The subject shrinks 15%, their breasts and ass grow 20%";
-            blatantlist[2] = "The subject's penis grows 10%. if longer than 30% of the subjects height/length,  it becomes equine. Increase production by 10%. The subject gains the Equine aspect. Transform a location at ranom if already present.";
+            blatantlist[2] = "The subject's penis grows 10%. if longer than 30% of the subjects height/length,  it becomes equine. Increase production and height by 10%. The subject gains the Equine aspect. Transform a location at ranom if already present.";
             blatantlist[3] = "The subject's tail grows 15% longer";
             blatantlist[4] = "The subject's body grows 15% larger and more muscular";
             blatantlist[5] = "Roll Location, grow the result by 10%";
@@ -31,7 +31,7 @@ namespace Serum_Roller
             latentlist[2] = "The Blatant effect occurs again after the next serum";
             latentlist[3] = "The subject's cock, balls, breasts, and ass all grow 10% larger";
             latentlist[4] = "The subject's growth susceptibility increases by 10%";
-            latentlist[5] = "The next blatant effect is orange, roll latent on the intended table";
+            latentlist[5] = "The subject grows 10% larger.";
             latentlist[6] = "The subject's growth susceptibility increases by 20%";
             latentlist[7] = "Roll an additional Green blatant effect, and apply it immediately";
             latentlist[8] = "The Blatant Effect occurs twice";

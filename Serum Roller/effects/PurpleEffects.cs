@@ -22,7 +22,7 @@ namespace Serum_Roller.effects
             blatantlist[5] = "Roll again with doubled effects";
             blatantlist[6] = "If not present, the subject gains injection ports, allowing for quadruple strength serums. The subject's growth susceptibility increases by 50%. This effect tends towards fur and furless limbs.";
             blatantlist[7] = "The subject's Pudge and height increase by 10%. The subject's production increases by 20%. This effect tends towards fur.";
-            blatantlist[8] = "The subject gains up to 2 arms/forelimbs, up to a maximum of four. If the subject has four, they shift to a Feral bodystale. The subject and their endowments grow 15% larger.";
+            blatantlist[8] = "The subject gains up to 2 arms/forelimbs, up to a maximum of four. If the subject has four, they shift to a Feral bodystyle. The subject and their endowments grow 15% larger.";
             blatantlist[9] = "The subject gains a bellymaw. If the subject already has a bellymaw, they instead become a Hexataur. The subject's enbdowments and production increase 10%";
             blatantlist[10] = "The subject gains up to 2 eyes, to a maximum of four. The subject's endowments and breasts grow 20%, the subject's production increases 10%";
             string[] latentlist = new string[11];

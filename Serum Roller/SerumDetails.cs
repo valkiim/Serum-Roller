@@ -20,8 +20,15 @@ namespace Serum_Roller
             InitializeComponent();
             serumIDlabel.Text = input;
             Effects = effectIn;
-            BlatantDescLabel.Text = Effects[0].ToString();
-            LatentDescLabel.Text = Effects[1].ToString();
+            if (effectIn == null)
+            {
+                BlatantDescLabel.Text = "Invalid Serum Applied";
+                LatentDescLabel.Text = "Invalid Serum Applied";
+            } else
+            {
+                BlatantDescLabel.Text = Effects[0].ToString();
+                LatentDescLabel.Text = Effects[1].ToString();
+            }
             // dialog OK = Delete
             // Dialog Cx = just looking no del. 
         }

@@ -20,7 +20,11 @@ namespace Serum_Roller
         Locationhandler Loc;
         public userui()
         {
+            WelcomeForm welc = new WelcomeForm();
             InitializeComponent();
+            welc.ShowDialog();
+            string user = welc.UsernameField.Text;
+            SerumArchive.Items.Add("User: " + user);
             EH = new EffectHandler();
             Die = new Dieroller();
             Loc = new Locationhandler();
@@ -123,6 +127,7 @@ namespace Serum_Roller
             else
             {
                 colour = "Invalid";
+                return null;
             }
             AdditionColourSelect.Text = colour;
 

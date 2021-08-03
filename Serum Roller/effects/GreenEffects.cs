@@ -33,7 +33,7 @@ namespace Serum_Roller.effects
             latentlist[5] = "The subject can choose either the Location or Aspect of this blatant, If the blatant does not have either value, no effect.";
             latentlist[6] = "The subject has the compulsion to consume another green serum. Defying this results in an additional blue blatant. Indulging this results in an additional Orange Blatant. This compulsion only lasts for one serum.";
             latentlist[7] = "Roll a Second Green Blatant Effect";
-            latentlist[8] = "The subject's natural is modified to Synthetic-natural. The subject's humanity is not Val's problem. A synthetic receiving this latent may either embrace it, allowinf for self modification, or reject it, becoming biological.";
+            latentlist[8] = "The subject's natural is modified to Synthetic-natural. The subject's humanity is not Val's problem. A synthetic receiving this latent may either embrace it, allowing for self modification, or reject it, becoming biological.";
             latentlist[9] = "The next Green serum the subject consumes is a duplicate of this, with no latent effect. Lasts until used.";
             latentlist[10] = "The subject chooses up to two of their aspects. Apply both aspects to the entirety of the subject's body. The aspects are then removed, and the subject's natural becomes a hybrid of the two.";
             for (int i = 0; i <= 10; i++)

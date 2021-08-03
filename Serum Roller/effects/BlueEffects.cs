@@ -19,9 +19,9 @@ namespace Serum_Roller
             blatantlist[3] = "The subject's body becomes unstable, any pressure causes 10% shrinkage. This effect ends after the next serum";
             blatantlist[4] = "The subjects penis and production, if any, shrinks by 20%. If they are absent, the subject shrinks by 20% instead";
             blatantlist[5] = "Roll Location, It shrinks by 10%";
-            blatantlist[6] = "The subject shrinks by 25% of their current height and gains the Kobold aspect. if already present, Transform a random location. If the subject is completely kobold, their natural becomes kobold";
+            blatantlist[6] = "The subject shrinks by 15% of their current height and gains the Kobold aspect. if already present, Transform a random location. If the subject is completely kobold, their natural becomes kobold";
             blatantlist[7] = "The subject loses 10% of their pudge, and becomes 10% more muscular";
-            blatantlist[8] = "The subject shrinks 25% and gains the Mouse aspect. If already present, transform a random location";
+            blatantlist[8] = "The subject shrinks 15% and gains the Mouse aspect. If already present, transform a random location";
             blatantlist[9] = "This serum was calibrated for someone of a different size. Roll again, and apply the blatant twice";
             blatantlist[10] ="The subject becomes either half their current height, or one inch tall. whichever is smaller. Unaffected by susceptibility.";
             string[] latentlist = new string[11];

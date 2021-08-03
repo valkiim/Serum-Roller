@@ -47,6 +47,8 @@ namespace Serum_Roller
             this.LocationResultLabel = new System.Windows.Forms.Label();
             this.SerumArchive = new System.Windows.Forms.ListBox();
             this.historylabel = new System.Windows.Forms.Label();
+            this.randomAspectButton = new System.Windows.Forms.Button();
+            this.RandomAspectLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -185,7 +187,7 @@ namespace Serum_Roller
             // 
             // AddBlatantButton
             // 
-            this.AddBlatantButton.Location = new System.Drawing.Point(552, 381);
+            this.AddBlatantButton.Location = new System.Drawing.Point(531, 382);
             this.AddBlatantButton.Name = "AddBlatantButton";
             this.AddBlatantButton.Size = new System.Drawing.Size(75, 23);
             this.AddBlatantButton.TabIndex = 8;
@@ -196,7 +198,7 @@ namespace Serum_Roller
             // 
             // AddLatentButton
             // 
-            this.AddLatentButton.Location = new System.Drawing.Point(633, 381);
+            this.AddLatentButton.Location = new System.Drawing.Point(612, 382);
             this.AddLatentButton.Name = "AddLatentButton";
             this.AddLatentButton.Size = new System.Drawing.Size(75, 23);
             this.AddLatentButton.TabIndex = 9;
@@ -222,7 +224,7 @@ namespace Serum_Roller
             "Orange",
             "Pink",
             "Purple"});
-            this.AdditionColourSelect.Location = new System.Drawing.Point(552, 350);
+            this.AdditionColourSelect.Location = new System.Drawing.Point(531, 349);
             this.AdditionColourSelect.Name = "AdditionColourSelect";
             this.AdditionColourSelect.Size = new System.Drawing.Size(156, 21);
             this.AdditionColourSelect.TabIndex = 12;
@@ -255,11 +257,31 @@ namespace Serum_Roller
             this.historylabel.TabIndex = 15;
             this.historylabel.Text = "Prior Serums";
             // 
+            // randomAspectButton
+            // 
+            this.randomAspectButton.Location = new System.Drawing.Point(718, 355);
+            this.randomAspectButton.Name = "randomAspectButton";
+            this.randomAspectButton.Size = new System.Drawing.Size(96, 23);
+            this.randomAspectButton.TabIndex = 16;
+            this.randomAspectButton.Text = "Random Aspect";
+            this.randomAspectButton.UseVisualStyleBackColor = true;
+            this.randomAspectButton.Click += new System.EventHandler(this.RandomAspectButton_Click);
+            // 
+            // RandomAspectLabel
+            // 
+            this.RandomAspectLabel.AutoSize = true;
+            this.RandomAspectLabel.Location = new System.Drawing.Point(719, 387);
+            this.RandomAspectLabel.Name = "RandomAspectLabel";
+            this.RandomAspectLabel.Size = new System.Drawing.Size(0, 13);
+            this.RandomAspectLabel.TabIndex = 17;
+            // 
             // userui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 415);
+            this.Controls.Add(this.RandomAspectLabel);
+            this.Controls.Add(this.randomAspectButton);
             this.Controls.Add(this.historylabel);
             this.Controls.Add(this.SerumArchive);
             this.Controls.Add(this.LocationResultLabel);
@@ -309,6 +331,8 @@ namespace Serum_Roller
         private System.Windows.Forms.Label LocationResultLabel;
         private System.Windows.Forms.ListBox SerumArchive;
         private System.Windows.Forms.Label historylabel;
+        private System.Windows.Forms.Button randomAspectButton;
+        private System.Windows.Forms.Label RandomAspectLabel;
     }
 }
 

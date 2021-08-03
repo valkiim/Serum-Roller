@@ -15,7 +15,7 @@ namespace Serum_Roller
             Latents = new sEffect[11];
             string[] blatantlist = new string[11];
             blatantlist[0] = "The subject's production increases by 20%, they gain the Rat Aspect. Transform a Location at random if already present";
-            blatantlist[1] = "The subject shrinks 15%, their breasts and ass grow 20%";
+            blatantlist[1] = "The subject shrinks 10%, their breasts and ass grow 20%";
             blatantlist[2] = "The subject's penis grows 10%. if longer than 30% of the subjects height/length,  it becomes equine. Increase production and height by 10%. The subject gains the Equine aspect. Transform a location at ranom if already present.";
             blatantlist[3] = "The subject's tail grows 15% longer";
             blatantlist[4] = "The subject's body grows 15% larger and more muscular";

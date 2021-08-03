@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="aspect.cs" />
+    <Compile Include="AspectRoller.cs" />
     <Compile Include="Dieroller.cs" />
     <Compile Include="EffectHandler.cs" />
     <Compile Include="effects\BlueEffects.cs" />

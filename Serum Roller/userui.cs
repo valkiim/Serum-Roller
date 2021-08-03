@@ -18,6 +18,7 @@ namespace Serum_Roller
         EffectHandler EH;
         Dieroller Die;
         Locationhandler Loc;
+        AspectRoller AR;
         public userui()
         {
             WelcomeForm welc = new WelcomeForm();
@@ -28,10 +29,10 @@ namespace Serum_Roller
             EH = new EffectHandler();
             Die = new Dieroller();
             Loc = new Locationhandler();
+            AR = new AspectRoller();
             SerumIDField.Text = "SerumID";
             SerumFamilySelect.Text = "Choose Colour";
         }
-
         private void RollSerumButton_Click(object sender, EventArgs e)
         {
             string input = SerumFamilySelect.Text;
@@ -193,17 +194,14 @@ namespace Serum_Roller
             BlatantEffectList.Items.Add(Blatant.ToString());
             LatentEffectList.Items.Add(Latent.ToString());
         }
-
         private void TFLocationButton_Click(object sender, EventArgs e)
         {
             LocationResultLabel.Text = Loc.TFLocation(Die.roll());
         }
-
         private void SizeLocationButton_Click(object sender, EventArgs e)
         {
             LocationResultLabel.Text = Loc.SizeLocation(Die.roll());
         }
-
         private void AddBlatantButton_Click(object sender, EventArgs e)
         {
             string colour = AdditionColourSelect.Text;
@@ -213,7 +211,6 @@ namespace Serum_Roller
             sEffect Blatant = EH.RollResults(colour, Die.roll(), 12)[0];
             BlatantEffectList.Items.Add(Blatant.ToString());
         }
-
         private void AddLatentButton_Click(object sender, EventArgs e)
         {
             string colour = AdditionColourSelect.Text;
@@ -224,7 +221,6 @@ namespace Serum_Roller
             sEffect latent = EH.RollResults(colour, 12, Die.roll())[1];
             LatentEffectList.Items.Add(latent.ToString());
         }
-
         private void SerumArchive_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             // When mouse double clicks, show details of selected serum. Nice and simple. 
@@ -237,6 +233,11 @@ namespace Serum_Roller
                 SerumArchive.Items.RemoveAt(sel);
             }
             //else, live a long and happy life
+        }
+
+        private void RandomAspectButton_Click(object sender, EventArgs e)
+        {
+            RandomAspectLabel.Text = AR.RollAspect().ToString();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Serum_Roller
             blatantlist[6] = "The subject's tongue grows 15% longer";
             blatantlist[7] = "The subject's ass grows 15% larger";
             blatantlist[8] = "The Subject becomes 15% pudgier";
-            blatantlist[9] = "If the subject has 1 penis, they gain a second. Any penises present grow 10%. The subject's tail grows 10% longer. The subject gains the Dragon Aspect, transform a Location at random if already present";
+            blatantlist[9] = "If the subject has 1 penis, they gain a second. Any penises present grow 10%. The subject's tail and Height grow by 10%. The subject gains the Dragon Aspect, transform a Location at random if already present";
             blatantlist[10] = "The subject gains the Vessarian aspect, if absent. If the subject lacks penises 20% of their hight, they gain one of that size, otherwise, the subject's penises grow 15%. If the subject lacks testes, they gain up to four, otherwise, production increases by 10%. If the subject lacks a vagina, they gain one. Otherwise, production increases 10%. The subject's breasts grow 10%.";
             string[] latentlist = new string[11];
             latentlist[0] = "The next time the subject drinks an orange or blue serum, Roll from the opposite table for both Blatant and Latent effects";

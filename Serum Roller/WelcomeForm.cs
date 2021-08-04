@@ -21,5 +21,10 @@ namespace Serum_Roller
         {
 
         }
+
+        private void AcceptButton_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
     }
 }

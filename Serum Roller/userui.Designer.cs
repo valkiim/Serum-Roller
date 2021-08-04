@@ -49,6 +49,7 @@ namespace Serum_Roller
             this.historylabel = new System.Windows.Forms.Label();
             this.randomAspectButton = new System.Windows.Forms.Button();
             this.RandomAspectLabel = new System.Windows.Forms.Label();
+            this.helpbutton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -117,7 +118,7 @@ namespace Serum_Roller
             // 
             this.LatentEffectList.FormattingEnabled = true;
             this.LatentEffectList.HorizontalScrollbar = true;
-            this.LatentEffectList.Location = new System.Drawing.Point(0, 43);
+            this.LatentEffectList.Location = new System.Drawing.Point(0, 49);
             this.LatentEffectList.Name = "LatentEffectList";
             this.LatentEffectList.Size = new System.Drawing.Size(696, 124);
             this.LatentEffectList.TabIndex = 1;
@@ -154,7 +155,7 @@ namespace Serum_Roller
             "By ID"});
             this.SerumFamilySelect.Location = new System.Drawing.Point(202, 384);
             this.SerumFamilySelect.Name = "SerumFamilySelect";
-            this.SerumFamilySelect.Size = new System.Drawing.Size(121, 21);
+            this.SerumFamilySelect.Size = new System.Drawing.Size(91, 21);
             this.SerumFamilySelect.TabIndex = 4;
             // 
             // SerumIDField
@@ -275,11 +276,22 @@ namespace Serum_Roller
             this.RandomAspectLabel.Size = new System.Drawing.Size(0, 13);
             this.RandomAspectLabel.TabIndex = 17;
             // 
+            // helpbutton
+            // 
+            this.helpbutton.Location = new System.Drawing.Point(299, 384);
+            this.helpbutton.Name = "helpbutton";
+            this.helpbutton.Size = new System.Drawing.Size(24, 23);
+            this.helpbutton.TabIndex = 18;
+            this.helpbutton.Text = "?";
+            this.helpbutton.UseVisualStyleBackColor = true;
+            this.helpbutton.Click += new System.EventHandler(this.helpbutton_Click);
+            // 
             // userui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 415);
+            this.Controls.Add(this.helpbutton);
             this.Controls.Add(this.RandomAspectLabel);
             this.Controls.Add(this.randomAspectButton);
             this.Controls.Add(this.historylabel);
@@ -333,6 +345,7 @@ namespace Serum_Roller
         private System.Windows.Forms.Label historylabel;
         private System.Windows.Forms.Button randomAspectButton;
         private System.Windows.Forms.Label RandomAspectLabel;
+        private System.Windows.Forms.Button helpbutton;
     }
 }
 

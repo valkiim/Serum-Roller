@@ -239,5 +239,10 @@ namespace Serum_Roller
         {
             RandomAspectLabel.Text = AR.RollAspect().ToString();
         }
+
+        private void helpbutton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Double Click serums in the history to check effects\nOrange Causes Growth\nGreen Causes Transformation\nBlue Causes Shrinking\nPink helps Revert you!");
+        }
     }
 }

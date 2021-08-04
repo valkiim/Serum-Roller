@@ -1,6 +1,6 @@
 namespace Serum_Roller
 {
-    partial class userui
+    partial class UserUi
     {
         /// <summary>
         /// Required designer variable.

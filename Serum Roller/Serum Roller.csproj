@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="aspect.cs" />
+    <Compile Include="Aspect.cs" />
     <Compile Include="AspectRoller.cs" />
     <Compile Include="Dieroller.cs" />
     <Compile Include="EffectHandler.cs" />
@@ -63,11 +63,12 @@
     <Compile Include="SerumDetails.Designer.cs">
       <DependentUpon>SerumDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="userui.cs">
+    <Compile Include="UserLog.cs" />
+    <Compile Include="UserUi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="userui.Designer.cs">
-      <DependentUpon>userui.cs</DependentUpon>
+    <Compile Include="UserUi.Designer.cs">
+      <DependentUpon>UserUi.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,8 +81,8 @@
     <EmbeddedResource Include="SerumDetails.resx">
       <DependentUpon>SerumDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="userui.resx">
-      <DependentUpon>userui.cs</DependentUpon>
+    <EmbeddedResource Include="UserUi.resx">
+      <DependentUpon>UserUi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

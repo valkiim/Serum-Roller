@@ -16,7 +16,7 @@ namespace Serum_Roller
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new userui());
+            Application.Run(new UserUi());
         }
     }
 }

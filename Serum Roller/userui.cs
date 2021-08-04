@@ -13,13 +13,13 @@ using System.Windows.Forms;
 
 namespace Serum_Roller
 {
-    public partial class userui : Form
+    public partial class UserUi : Form
     {
         EffectHandler EH;
         Dieroller Die;
         Locationhandler Loc;
         AspectRoller AR;
-        public userui()
+        public UserUi()
         {
             WelcomeForm welc = new WelcomeForm();
             InitializeComponent();

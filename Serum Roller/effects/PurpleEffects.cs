@@ -29,7 +29,6 @@ namespace Serum_Roller.effects
             BlatantEffects.Add(new string[] { "growMax", "Bellymaw", "1", "rawText", "If the subject already had a bellymaw, they become a hexataur", "", "grow", "genitals", "0.1", "grow", "production", "0.1" });
             BlatantEffects.Add(new string[] { "growMax", "eyes", "4", "grow", "genitals", "0.2", "grow", "breasts", "0.2", "grow", "production", "0.1" });
             //Latents
-            string[] latentlist = new string[11];
             LatentEffects.Add(new string[] { "rawText", "A random person in sight shrinks by 10%", "", "grow", "random", "0.1" });
             LatentEffects.Add(new string[] { "rawText", "The subject's horns grow more magnificent", "" });
             LatentEffects.Add(new string[] { "nextSerum", "doubleDose", "" });
@@ -40,8 +39,8 @@ namespace Serum_Roller.effects
             LatentEffects.Add(new string[] { "grow", "height", "0.1", "grow", "genitals", "0.1", "grow", "production", "0.1" });
             LatentEffects.Add(new string[] { "grow", "production", "0.2" });
             LatentEffects.Add(new string[] { "grow", "all", "0.2" });
-            LatentEffects.Add(new string[] { "multiply", "growthEff", "2"})
-            latentlist[10] = "The subject's growth susceptibility doubles.";
+            LatentEffects.Add(new string[] { "multiply", "growthEff", "2" });
+            
             for (int i = 0; i <= 10; i++)
             {
                 Blatants[i] = new sEffect((i + 2), BlatantEffects[i]);

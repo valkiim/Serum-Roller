@@ -13,34 +13,38 @@ namespace Serum_Roller
         {
             Blatants = new sEffect[11];
             Latents = new sEffect[11];
-            string[] blatantlist = new string[11];
-            blatantlist[0] = "All body parts become the highest aspect. The subject's natural is replaced with their Highest Aspect.";
-            blatantlist[1] = "The subject becomes a physical copy of the Attendant/Researcher.";
-            blatantlist[2] = "The subject is offered a selection of generic but attractive bodies to transfer their consciousness into. Their existing body is forfeit to Val for further study.";
-            blatantlist[3] = "A random Location returns to Natural (shape and Size), If that location is already natural, it spreads like normal. If a subject's entire body is already natural, It roll once on the Orange, Blue, and Green Blatant tables.";
-            blatantlist[4] = "The subject's size shifts towards their original size by 10%";
-            blatantlist[5] = "Remove the subject's lowest aspect, and remove all traits affiliated with it. Said bodyparts shift to the subject's Highest Aspect. Should the subject lack a non-highest aspect, Shift their size 10% closer to natural.";
-            blatantlist[6] = "Roll Location, The subject's location returns to their High Aspect's type with Natural size, shape, and number.";
-            blatantlist[7] = "Growth and shrinking effectiveness both move 50%, towards 100%. If this would shift a value past 100%, set it to 100% instead.";
-            blatantlist[8] = "The subject's entire body is returned to their original shape, but 50% taller than normal.";
-            blatantlist[9] = "Randomly select an aspect the subject lacks. The Subject's natural becomes that, and all bodyparts transform to match";
-            blatantlist[10] = "The subject's body is returned to the state it was in before this process. The next serum has Quadruple effecty (blatant and Latent).";
-            string[] latentlist = new string[11];
-            latentlist[0] = "Lost aspects cannot be re-attained.";
-            latentlist[1] = "If applicable, The blatant effects 1 additional location, or twice as much size.";
-            latentlist[2] = "The next serum chosen must be either Pink or Orange. Green and Blue serums have no effect until this is satisfied.";
-            latentlist[3] = "Blue and Orange serums are inverted until one is chosen. Blue serums roll on Orange, and Vice Versa.";
-            latentlist[4] = "The subject loses an additional, unwanted aspect.";
-            latentlist[5] = "Roll an additional blatant";
-            latentlist[6] = "The subject gains an additional aspect at random. This does not result in any immediate changes.";
-            latentlist[7] = "The subject's genitals' natural size is increased by 50%. This does not affect their current size.";
-            latentlist[8] = "The next serum chosen must be either Pink or Blue. Green and orange serums have no effect until this is satisfied.";
-            latentlist[9] = "The next serum chosen must be either Pink or Green. Blue and orange serums have no effect until this is satisfied.";
-            latentlist[10] = "The subject rolls 3 times for Blatant and Latent on their next serum, and may choose whichever results they desire. The subject is Quite aware of this latent.";
+
+            List<string[]> BlatantEffects = new List<string[]>();
+            List<string[]> LatentEffects = new List<string[]>();
+            //blatants
+            BlatantEffects.Add(new string[] { "rawText", "All body parts become the highest aspect. The subject's natural is replaced with their Highest Aspect.", "" });
+            BlatantEffects.Add(new string[] { "rawText", "The subject becomes a physical copy of the Attendant/Researcher!", "" });
+            BlatantEffects.Add(new string[] { "rawText", "The subject is offered a selection of generic but attractive bodies to transfer their consciousness into. Their existing body is forfeit to Val for further study.", "" });
+            BlatantEffects.Add(new string[] { "transform", "random", "Natural", "condition", "Was there anything left to transform?", "rightNow", "chaosSerum", "" });
+            BlatantEffects.Add(new string[] { "condition", "Is the subject larger than their natural size?", "shrink", "height", "0.1", "else", "grow", "height", "0.1" });
+            BlatantEffects.Add(new string[] { "rightNow", "removeAspect", "lowest" });
+            BlatantEffects.Add(new string[] { "transform", "random", "highest" });
+            BlatantEffects.Add(new string[] { "normalize", "growthEff", "0.5", "normalize", "shrinkEff", "0.5" });
+            BlatantEffects.Add(new string[] { "rightNow", "removeAspect", "All", "grow", "height", "0.5" });
+            BlatantEffects.Add(new string[] { "applyNatural", "Random", "Y" });
+            BlatantEffects.Add(new string[] { "rawText", "The subject's body is returned to the state it was in before this process", "", "nextSerum", "doubleDose", "", "nextSerum", "doubleDose", "" });
+            //Latents
+            LatentEffects.Add(new string[] { "rawText", "Lost aspects cannot be re-attained.", "" });
+            LatentEffects.Add(new string[] { "rightNow", "repeatBlatant", "" });
+            LatentEffects.Add(new string[] { "nextSerum", "onlyPinkOr", "Orange" });
+            LatentEffects.Add(new string[] { "nextSize", "invertSerum", "" });
+            LatentEffects.Add(new string[] { "rightNow", "removeAspect", "lowest" });
+            LatentEffects.Add(new string[] { "rightNow", "addBlatant", "Pink" });
+            LatentEffects.Add(new string[] { "addAspect", "random", "n"});
+            LatentEffects.Add(new string[] { "rawText", "The subject's genitals' natural size is increased by 50%. This does not affect their current size. Val is still working on a clever implementation of this, sorry!"});
+            LatentEffects.Add(new string[] { "nextSerum", "onlyPinkOr", "Blue" });
+            LatentEffects.Add(new string[] { "nextSerum", "onlyPinkOr", "Green" });
+            LatentEffects.Add(new string[] { "nextSerum", "extremeAdvantage", "" });
+            
             for (int i = 0; i <= 10; i++)
             {
-                Blatants[i] = new sEffect((i + 2), blatantlist[i]);
-                Latents[i] = new sEffect((i + 2), latentlist[i]);
+                Blatants[i] = new sEffect((i + 2), BlatantEffects[i]);
+                Latents[i] = new sEffect((i + 2), LatentEffects[i]);
             }
         }
 

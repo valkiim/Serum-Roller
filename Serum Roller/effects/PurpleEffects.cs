@@ -13,34 +13,39 @@ namespace Serum_Roller.effects
         {
             Blatants = new sEffect[11];
             Latents = new sEffect[11];
-            string[] blatantlist = new string[11];
-            blatantlist[0] = "The subject's Size theft aura is now 5 meters, or increases by 5 meters";
-            blatantlist[1] = "If not present, the subject gains 2 more heads and tails, for a total of three. If the subject already has suck, they grow 15% taller. This effect tends towards scales.";
-            blatantlist[2] = "The subject is not synthetic, The subject can overpower this with later effects if desires, but natively allows for modularity. Transform a location at random. This effect tends towards smooth plating.";
-            blatantlist[3] = "If the subject has a penis, but does not have tailcocks, they gain 2 tail cocks. These special endowments are double the size of the subject's normal endowments. If that consition is already met or invalid, the subject instead shifts to a naga body. The subject, their tail, and genitals all grow 10%";
-            blatantlist[4] = "If not present, the subject gains wings. If the subject already has wings, instead their height, tail and endowments grow 10%, and their production increases 15%.";
-            blatantlist[5] = "Roll again with doubled effects";
-            blatantlist[6] = "If not present, the subject gains injection ports, allowing for quadruple strength serums. The subject's growth susceptibility increases by 50%. This effect tends towards fur and furless limbs.";
-            blatantlist[7] = "The subject's Pudge and height increase by 10%. The subject's production increases by 20%. This effect tends towards fur.";
-            blatantlist[8] = "The subject gains up to 2 arms/forelimbs, up to a maximum of four. If the subject has four, they shift to a Feral bodystyle. The subject and their endowments grow 15% larger.";
-            blatantlist[9] = "The subject gains a bellymaw. If the subject already has a bellymaw, they instead become a Hexataur. The subject's enbdowments and production increase 10%";
-            blatantlist[10] = "The subject gains up to 2 eyes, to a maximum of four. The subject's endowments and breasts grow 20%, the subject's production increases 10%";
+
+            List<string[]> BlatantEffects = new List<string[]>();
+            List<string[]> LatentEffects = new List<string[]>();
+            //Blatants
+            BlatantEffects.Add(new string[] { "rawText", "The subject's Size theft aura is now 5 meters, or increases by 5 meters"});
+            BlatantEffects.Add(new string[] { "growMax", "head", "3", "growMax", "tail", "3", "grow", "height", "0.15" });
+            BlatantEffects.Add(new string[] { "applyNatural", "Synthetic", "Y" });
+            BlatantEffects.Add(new string[] { "rawText", "If the subject has a penis, but does not have tailcocks, they gain 2 tail cocks. These special endowments are double the size of the subject's normal endowments.", "", "transform", "lower body", "Naga", "grow", "height", "0.1", "grow", "tail", "0.1", "grow", "genitals", "0.1" });
+            BlatantEffects.Add(new string[] { "growMax", "wings", "2", "grow", "height", "0.1", "grow", "tail", "0.1", "grow", "genitals", "0.1", "grow", "production", "0.15" });
+            BlatantEffects.Add(new string[] { "rightNow", "AddBlatant", "Purple", "nextSerum", "doubleDose", "" });
+            BlatantEffects.Add(new string[] { "rawText", "The subject gains injection ports, which are not quite implemented yet", "", "increase", "growthEff", "0.5"});
+            BlatantEffects.Add(new string[] { "grow", "fat", "0.1", "grow", "height", "0.1", "grow", "production", "0.2" });
+            BlatantEffects.Add(new string[] { "growMax", "Arm", "4", "grow", "height", "0.15", "grow", "genitals", "0.15" });
+            BlatantEffects.Add(new string[] { "growMax", "Bellymaw", "1", "rawText", "If the subject already had a bellymaw, they become a hexataur", "", "grow", "genitals", "0.1", "grow", "production", "0.1" });
+            BlatantEffects.Add(new string[] { "growMax", "eyes", "4", "grow", "genitals", "0.2", "grow", "breasts", "0.2", "grow", "production", "0.1" });
+            //Latents
             string[] latentlist = new string[11];
-            latentlist[0] = "Roll Location. A random person in sight shrinks by 10%, and the subject grows 10%.";
-            latentlist[1] = "The subject's horns grow more magnificent.";
-            latentlist[2] = "The next serum effect is applied twice.";
-            latentlist[3] = "The subject's breasts grow 10% larger.";
-            latentlist[4] = "The subject's endowments grow 10% larger.";
-            latentlist[5] = "The subject's growth susceptibility increases by 20%.";
-            latentlist[6] = "The subject's tail grows 10% longer.";
-            latentlist[7] = "The subject's height, endowments, and production grow by 10%.";
-            latentlist[8] = "The Subject's production increases by 20%";
-            latentlist[9] = "The subject grows 20% larger in all respects.";
+            LatentEffects.Add(new string[] { "rawText", "A random person in sight shrinks by 10%", "", "grow", "random", "0.1" });
+            LatentEffects.Add(new string[] { "rawText", "The subject's horns grow more magnificent", "" });
+            LatentEffects.Add(new string[] { "nextSerum", "doubleDose", "" });
+            LatentEffects.Add(new string[] { "grow", "breasts", "0.1" });
+            LatentEffects.Add(new string[] { "grow", "genitals", "0.1" });
+            LatentEffects.Add(new string[] { "increase", "growthEff", "0.2" });
+            LatentEffects.Add(new string[] { "grow", "tail", "0.1" });
+            LatentEffects.Add(new string[] { "grow", "height", "0.1", "grow", "genitals", "0.1", "grow", "production", "0.1" });
+            LatentEffects.Add(new string[] { "grow", "production", "0.2" });
+            LatentEffects.Add(new string[] { "grow", "all", "0.2" });
+            LatentEffects.Add(new string[] { "multiply", "growthEff", "2"})
             latentlist[10] = "The subject's growth susceptibility doubles.";
             for (int i = 0; i <= 10; i++)
             {
-                Blatants[i] = new sEffect((i + 2), blatantlist[i]);
-                Latents[i] = new sEffect((i + 2), latentlist[i]);
+                Blatants[i] = new sEffect((i + 2), BlatantEffects[i]);
+                Latents[i] = new sEffect((i + 2), LatentEffects[i]);
             }
         }
 

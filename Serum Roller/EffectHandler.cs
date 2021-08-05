@@ -21,37 +21,51 @@ namespace Serum_Roller
             pink = new PinkEffects();
             purple = new effects.PurpleEffects();
         }
-
-        //all of these process the die roll
-        public sEffect[] RollResults(string colour, int first, int second)
+        public sEffect get(string colour, string effectType, int roll)
         {
-            sEffect[] results = new sEffect[2];
             if (colour.Equals("Blue"))
             {
-                results[0] = GetBlueBlatant(first);
-                results[1] = GetBlueLatent(second);
+                if (effectType.Equals("Blatant"))
+                {return GetBlueBlatant(roll);}
+                else
+                {return GetBlueLatent(roll);}
             }
             else if (colour.Equals("Green"))
             {
-                results[0] = GetGreenBlatant(first);
-                results[1] = GetGreenLatent(second);
+                if (effectType.Equals("Blatant"))
+                {return GetGreenBlatant(roll);}
+                else
+                {return GetGreenLatent(roll);}
             }
             else if (colour.Equals("Orange"))
             {
-                results[0] = GetOrangeBlatant(first);
-                results[1] = GetOrangeLatent(second);
+                if (effectType.Equals("Blatant"))
+                {return GetOrangeBlatant(roll);}
+                else
+                {return GetOrangeLatent(roll);}
             }
             else if (colour.Equals("Pink"))
             {
-                results[0] = GetPinkBlatant(first);
-                results[1] = GetPinkLatent(second);
+                if (effectType.Equals("Blatant"))
+                {return GetPinkBlatant(roll);}
+                else
+                {return GetPinkLatent(roll);}
             }
             else
             {
                 //(colour == purple, but a bit of a failsafe. 
-                results[0] = GetPurpleBlatant(first);
-                results[1] = GetPurpleLatent(second);
+                if (effectType.Equals("Blatant"))
+                {return GetPurpleBlatant(roll);}
+                else
+                {return GetPurpleLatent(roll);}
             }
+        }
+        //all of these process the die roll
+        public sEffect[] RollResults(string colour, int first, int second)
+        {
+            sEffect[] results = new sEffect[2];
+            results[0] = get(colour, "Blatant", first);
+            results[1] = get(colour, "Latent", second);
             return results;
         }
         sEffect GetBlueBlatant(int i)

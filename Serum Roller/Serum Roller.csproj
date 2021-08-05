@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Aspect.cs" />
     <Compile Include="AspectRoller.cs" />
+    <Compile Include="AttributeFrame.cs" />
     <Compile Include="Dieroller.cs" />
     <Compile Include="EffectHandler.cs" />
     <Compile Include="effects\BlueEffects.cs" />
@@ -108,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="effects\EffectReworkText.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

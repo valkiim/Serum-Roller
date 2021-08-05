@@ -67,7 +67,8 @@ namespace Serum_Roller
             AspectList.Add(new Aspect("Animal", "Mammal", "Canine", "African Wild Dog"));
             AspectList.Add(new Aspect("Animal", "Mammal", "Rodent", "House Mouse"));
             AspectList.Add(new Aspect("Animal", "Mammal", "Rodent", "Grey Rat"));
-
+            AspectList.Add(new Aspect("Toy", "Plastic", "Articulated", "Figurine"));
+            AspectList.Add(new Aspect("Animal", "Mythic", "Serpentine", "Naga"));
 
         }
     }

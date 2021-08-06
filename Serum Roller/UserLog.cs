@@ -10,15 +10,14 @@ namespace Serum_Roller
     {
         //im not entirely certain what im using this for, 
         // but it will store aspects and help determine effect effects
-        List<Aspect> Aspects;
+        
         Aspect Natural;
         Aspect Highest;
         Aspect Lowest;
+        List<Aspect> Aspects;
         List<AttributeFrame> Attributes;
 
 
-        double growthEff;   // also called susceptibility
-        double shrinkEff;   // also called susceptibility
         UserLog()
         {
             Aspects = new List<Aspect>();
@@ -27,7 +26,7 @@ namespace Serum_Roller
             Attributes.Add(new AttributeFrame("shrinkEff", 1.0));
         }
 
-        UserLog(Aspect NatIn)
+        public UserLog(Aspect NatIn)
         {
             Aspects = new List<Aspect>();
             Aspects.Add(NatIn);
@@ -91,6 +90,28 @@ namespace Serum_Roller
             }
             return false;
         }
-        
+        public bool ModifyAttSet(string att, double val)
+        {
+            foreach (AttributeFrame a in Attributes)
+            {
+                if (att.Equals(a.Attribute))
+                {
+                    a.Value = val;
+                    return true;
+                }
+            }
+            return false;
+        }
+        public double getAttribute(string att)
+        {   // returns 0 if attribute not found
+            foreach (AttributeFrame a in Attributes)
+            {
+                if (att.Equals(a.Attribute))
+                {
+                    return a.Value;
+                }
+            }
+            return 0.0;
+        }
     }
 }

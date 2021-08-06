@@ -27,7 +27,7 @@ namespace Serum_Roller
             BlatantEffects.Add(new string[] { "grow", "ass", "0.15" });
             BlatantEffects.Add(new string[] { "grow", "fat", "0.15" });
             BlatantEffects.Add(new string[] { "grow", "penis", "0.1", "grow", "tail", "0.1", "grow", "height", "0.1", "applyAspect", "Dragon", "N", "rawText", "If the subject has exactly one penis, they grow a second." });
-            BlatantEffects.Add(new string[] { "rawText", "If the subject lacks a penis, they grow one.\nIf the subject has less than 4 testes, they grow up to four\nIf the subject lacks a vagina, they grow one.", "", "grow", "penis", "0.15", "grow", "production", "0.15", "grow", "breasts", "0.15" });
+            BlatantEffects.Add(new string[] { "growMax", "penis", "1", "growMax", "balls", "4", "growMax", "vagina", "1", "grow", "penis", "0.15", "grow", "production", "0.15", "grow", "breasts", "0.15" });
             // latents
             LatentEffects.Add(new string[] { "nextSize", "invertSerum", "" });
             LatentEffects.Add(new string[] { "decrease", "shrinkEff", "0.1" });

@@ -25,8 +25,9 @@ namespace Serum_Roller
             InitializeComponent();
             welc.ShowDialog();
             string user = welc.UsernameField.Text;
+            string usrNat = welc.subjectspeciesbox.Text;
             SerumArchive.Items.Add("User: " + user);
-            EH = new EffectHandler();
+            EH = new EffectHandler(usrNat);
             Die = new Dieroller();
             Loc = new Locationhandler();
             AR = new AspectRoller();
@@ -36,7 +37,7 @@ namespace Serum_Roller
         private void RollSerumButton_Click(object sender, EventArgs e)
         {
             string input = SerumFamilySelect.Text;
-            sEffect[] results = new sEffect[2];
+            string results;
             if (input.Equals("")||input.Equals("Choose Colour"))
             {
                 return;
@@ -62,7 +63,7 @@ namespace Serum_Roller
                 SerumIDField.Text = createID(input, blatant, latent);
                 SerumArchive.Items.Add(SerumIDField.Text);
                 AdditionColourSelect.Text = input;
-                ApplySerum(results[0], results[1]);
+                //ApplySerum(results[0], results[1]);
             }
         }
         string createID(string colour, int blatant, int latent)
@@ -175,24 +176,10 @@ namespace Serum_Roller
             }
 
         }
-        void ApplySerum(sEffect Blatant, sEffect Latent)
+        void ApplySerum(string visualEffects)
         {
-            for (int i = (BlatantEffectList.Items.Count - 1); i >= 0 ; i--)
-            {
-                if (!BlatantEffectList.GetItemChecked(i))
-                {
-                    BlatantEffectList.Items.RemoveAt(i);
-                }
-            }
-            for (int i = (LatentEffectList.Items.Count - 1); i >= 0; i--)
-            {
-                if (!LatentEffectList.GetItemChecked(i))
-                {
-                    LatentEffectList.Items.RemoveAt(i);
-                }
-            }
-            BlatantEffectList.Items.Add(Blatant.ToString());
-            LatentEffectList.Items.Add(Latent.ToString());
+            // TODO: rewrite this to handle the new subject output
+
         }
         private void TFLocationButton_Click(object sender, EventArgs e)
         {

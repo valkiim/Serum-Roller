@@ -19,6 +19,13 @@ namespace Serum_Roller
             AFamily = "UnInit";
             ASpecies = "UnInit";
         }
+        public Aspect(string inSpecies)
+        {
+            AKingdom = "UserDefined";
+            AClass = "UserDefined";
+            AFamily = "UserDefined";
+            ASpecies = inSpecies;
+        }
         public Aspect(string inKing, string inClass, string inFamily, string inSpecies)
         {
             AKingdom = inKing;

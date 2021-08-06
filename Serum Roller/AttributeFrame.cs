@@ -15,6 +15,11 @@ namespace Serum_Roller
             Attribute = name;
             Value = val;
         }
+        public AttributeFrame Copy()
+        {
+            // copy thingy so we dont reuse the same obj with assignments
+            return new AttributeFrame(Attribute, Value);
+        }
     }
 
 }

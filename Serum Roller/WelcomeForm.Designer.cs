@@ -33,6 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.AcceptButton = new System.Windows.Forms.Button();
             this.UsernameField = new System.Windows.Forms.TextBox();
+            this.subjectspeciesbox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // welcomeLabel
@@ -54,14 +55,13 @@
             this.label1.Size = new System.Drawing.Size(549, 208);
             this.label1.TabIndex = 1;
             this.label1.Text = resources.GetString("label1.Text");
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // AcceptButton
             // 
             this.AcceptButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.AcceptButton.Location = new System.Drawing.Point(398, 274);
+            this.AcceptButton.Location = new System.Drawing.Point(398, 277);
             this.AcceptButton.Name = "AcceptButton";
-            this.AcceptButton.Size = new System.Drawing.Size(163, 34);
+            this.AcceptButton.Size = new System.Drawing.Size(163, 59);
             this.AcceptButton.TabIndex = 2;
             this.AcceptButton.Text = "Accept";
             this.AcceptButton.UseVisualStyleBackColor = true;
@@ -75,12 +75,21 @@
             this.UsernameField.TabIndex = 3;
             this.UsernameField.Text = "Your Name Here";
             // 
+            // subjectspeciesbox
+            // 
+            this.subjectspeciesbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.subjectspeciesbox.Location = new System.Drawing.Point(15, 310);
+            this.subjectspeciesbox.Name = "subjectspeciesbox";
+            this.subjectspeciesbox.Size = new System.Drawing.Size(377, 26);
+            this.subjectspeciesbox.TabIndex = 4;
+            this.subjectspeciesbox.Text = "Subject Species Here";
+            // 
             // WelcomeForm
             // 
-            this.AcceptButton = this.AcceptButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 320);
+            this.ClientSize = new System.Drawing.Size(584, 348);
+            this.Controls.Add(this.subjectspeciesbox);
             this.Controls.Add(this.UsernameField);
             this.Controls.Add(this.AcceptButton);
             this.Controls.Add(this.label1);
@@ -100,5 +109,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button AcceptButton;
         public System.Windows.Forms.TextBox UsernameField;
+        public System.Windows.Forms.TextBox subjectspeciesbox;
     }
 }

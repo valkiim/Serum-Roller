@@ -17,6 +17,8 @@ namespace Serum_Roller
         effects.PurpleEffects purple;
         UserLog subject;
         List<string> futureEffects;
+        Dieroller die;
+        AspectRoller AR;
         public EffectHandler(string userNatural)
         {
             blue = new BlueEffects();
@@ -26,6 +28,8 @@ namespace Serum_Roller
             purple = new effects.PurpleEffects();
             Aspect usrNat = new Aspect("UserInput", "UserInput", "UserInput", userNatural);
             subject = new UserLog(usrNat);
+            die = new Dieroller();
+            AR = AspectRoller.Instance;
         }
         public sEffect get(string colour, string effectType, int roll)
         {
@@ -200,6 +204,69 @@ namespace Serum_Roller
 
             }
         }
+        private string pMultiply(string[] Eff, int i)
+        {//increases a user attribute
+            bool moddResolved = subject.ModifyAttMul(Eff[i + 1], double.Parse(Eff[i + 2]));
+            if (double.Parse(Eff[i + 2]) > 1)
+            {
+                if (Eff[i + 1].Equals("growthEff"))
+                {
+                    return "The Subject has a feeling that they could easily grow larger.\n" + ParseEffects(Eff, i + 3);
+                }
+                else if (Eff[i + 1].Equals("shrinkEff"))
+                {
+                    return "The Subject has a feeling that they could easily shrink smaller.\n" + ParseEffects(Eff, i + 3);
+                }
+                else
+                {
+                    if (moddResolved)
+                    {
+                        return "There is not an automated message for " + Eff[i + 1] + " but the effect was modified successfully.\n" + ParseEffects(Eff, i + 3);
+                    }
+                    else
+                    {
+                        return "There is not an automated message for " + Eff[i + 1] + " and the effect was not found.\n" + ParseEffects(Eff, i + 3);
+                    }
+                }
+            }
+            else 
+            {
+                if (Eff[i + 1].Equals("growthEff"))
+                {
+                    return "The Subject has a feeling that it is harder to grow larger.\n" + ParseEffects(Eff, i + 3);
+                }
+                else if (Eff[i + 1].Equals("shrinkEff"))
+                {
+                    return "The Subject has a feeling that they won't shrink smaller.\n" + ParseEffects(Eff, i + 3);
+                }
+                else
+                {
+                    if (moddResolved)
+                    {
+                        return "There is not an automated message for " + Eff[i + 1] + " but the effect was modified successfully.\n" + ParseEffects(Eff, i + 3);
+                    }
+                    else
+                    {
+                        return "There is not an automated message for " + Eff[i + 1] + " and the effect was not found.\n" + ParseEffects(Eff, i + 3);
+                    }
+                }
+            }
+        }
+        private string pTransform(string[] Eff, int i)
+        {   // Eff[i]/Eff[i+1]/Eff[i+2] = transform/location/aspect
+            string aspect = Eff[i + 1];
+            string location = Eff[i + 2];
+            if (aspect.Equals("random"))
+            {
+                aspect = AR.RollAspect().ToString();
+            }
+            if (location.Equals("random"))
+            {
+                location = Locationhandler.TFLocation(die.roll());
+            }
+            return "The Subject's " + location + " transforms into a(n) " + aspect + " " + location + "!\n" + ParseEffects(Eff, i + 3);
+        }
+
         public string ParseEffects(string[] Eff, int i)
         {   //i = index, now delegated out!
             if (Eff.Length <= i) { return ""; } //preventing out of Range errors
@@ -236,7 +303,14 @@ namespace Serum_Roller
             {
                 return pNormalize(Eff, i);
             }
-
+            else if (Eff[i].Equals("multiply"))
+            {
+                return pMultiply(Eff, i);
+            }
+            else if (Eff[i].Equals("transform"))
+            {
+                return pTransform(Eff, i);
+            }
 
 
             else return "";  //failsafe

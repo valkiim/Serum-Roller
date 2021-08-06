@@ -6,15 +6,26 @@ using System.Threading.Tasks;
 
 namespace Serum_Roller
 {
-    public class AspectRoller
+    public sealed class AspectRoller
     {
+        private static readonly AspectRoller instance = new AspectRoller();
         List<Aspect> AspectList;
-
-        public AspectRoller()
+        static AspectRoller()
+        {   // here to make the compiler play nice
+        }
+        private AspectRoller()
         {
             AspectList = new List<Aspect>();
             PopulateList();
         }
+        public static AspectRoller Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
         public Aspect RollAspect()
         {
             Random seedling;

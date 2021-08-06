@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Serum_Roller
 {
-    class Locationhandler
+    static class Locationhandler
     {
-        public string SizeLocation(int roll)
+        public static string SizeLocation(int roll)
         {
             switch (roll)
             {
@@ -26,7 +26,7 @@ namespace Serum_Roller
                 default: return "Unknown";
             }
         }
-        public string TFLocation(int roll)
+        public static string TFLocation(int roll)
         {
             switch (roll)
             {

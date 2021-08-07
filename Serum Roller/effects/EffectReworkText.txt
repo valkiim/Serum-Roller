@@ -31,7 +31,6 @@ GreenAddiction		// handles the weird case of green addiction (no coolour needed)
 DoubleDose		// Serum effects will be processed twice (no colour needed)
 NoLatent		// disables (random) latent on timing, no colour needed
 onlyPinkOr		// blocks anything that is not pink or (colour), removed on pink or (colour)
-add50Blat		// adds a blatant of Colour, 50% effective grow/shrink
 invertSerum		// orange instead of blue, vice versa
 chaosSerum		// green, Blue, and orange blatants all!
 removeAspect		// remove an aspect, of th esubject's choosing or direction

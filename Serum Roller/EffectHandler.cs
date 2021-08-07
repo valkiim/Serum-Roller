@@ -43,44 +43,46 @@ namespace Serum_Roller
             laRoll = 0;
 
         }
-        public sEffect get(string colour, string effectType, int roll)
+        public string[] get(string colour, string effectType, int roll)
         {
+            sEffect temp;
             if (colour.Equals("Blue"))
             {
                 if (effectType.Equals("Blatant"))
-                {return GetBlueBlatant(roll);}
+                {temp= GetBlueBlatant(roll);}
                 else
-                {return GetBlueLatent(roll);}
+                {temp= GetBlueLatent(roll);}
             }
             else if (colour.Equals("Green"))
             {
                 if (effectType.Equals("Blatant"))
-                {return GetGreenBlatant(roll);}
+                {temp= GetGreenBlatant(roll);}
                 else
-                {return GetGreenLatent(roll);}
+                {temp= GetGreenLatent(roll);}
             }
             else if (colour.Equals("Orange"))
             {
                 if (effectType.Equals("Blatant"))
-                {return GetOrangeBlatant(roll);}
+                {temp= GetOrangeBlatant(roll);}
                 else
-                {return GetOrangeLatent(roll);}
+                {temp= GetOrangeLatent(roll);}
             }
             else if (colour.Equals("Pink"))
             {
                 if (effectType.Equals("Blatant"))
-                {return GetPinkBlatant(roll);}
+                {temp= GetPinkBlatant(roll);}
                 else
-                {return GetPinkLatent(roll);}
+                {temp= GetPinkLatent(roll);}
             }
             else
             {
                 //(colour == purple, but a bit of a failsafe. 
                 if (effectType.Equals("Blatant"))
-                {return GetPurpleBlatant(roll);}
+                {temp= GetPurpleBlatant(roll);}
                 else
-                {return GetPurpleLatent(roll);}
+                {temp= GetPurpleLatent(roll);}
             }
+            return temp.ToStringArr();
         }
         //all of these process the die roll
         public string RollResults(string colour, int first, int second)
@@ -109,11 +111,53 @@ namespace Serum_Roller
                 if (PE.Effect.Equals("addBlatant"))
                 {
                     blatantColours.Add(PE.Parame);
+                    blatantDoses.Add(1);
                 }
                 else if (PE.Effect.Equals("addLatent"))
                 {
                     latentColours.Add(PE.Parame);
-                } else if (PE.Effect.Equals("replaceBothwith"))
+                    latentDoses.Add(1);
+                }
+                else if (PE.Effect.Equals("repeatBlatant"))
+                {
+                    string repBlat = "";
+                    int repBlatInt;
+                    if (PE.Parame[1].Equals('0'))
+                    {
+                        repBlatInt = int.Parse(PE.Parame[2].ToString());
+                    }
+                    else
+                    {
+                        repBlatInt = 10 + int.Parse(PE.Parame[2].ToString());
+                    }
+                     
+                    if (PE.Parame.Equals('L'))
+                    {
+                        repBlat = "Blue";
+                    }
+                    else if (PE.Parame.Equals('G'))
+                    {
+                        repBlat = "Green";
+                    }
+                    else if (PE.Parame.Equals('R'))
+                    {
+                        repBlat = "Orange";
+                    }
+                    else if (PE.Parame.Equals('P'))
+                    {
+                        repBlat = "Pink";
+                    }
+                    else if (PE.Parame.Equals('V'))
+                    {
+                        repBlat = "Purple";
+                    }
+                    foreach (string s in get(repBlat, "Blatant", repBlatInt))
+                    {
+                        fuEff.Add(s);
+                    }
+                    
+                }
+                else if (PE.Effect.Equals("replaceBothwith"))
                 {
                     latentColours[0] = PE.Parame;
                     blatantColours[0] = PE.Parame;
@@ -123,10 +167,12 @@ namespace Serum_Roller
                     if (currentSerum.Equals("Green"))
                     {
                         blatantColours.Add("Orange");
+                        blatantDoses.Add(1);
                     }
                     else
                     {
                         blatantColours.Add("Blue");
+                        blatantDoses.Add(1);
                     }
                 }
                 else if (PE.Effect.Equals("doubleDose"))
@@ -150,6 +196,32 @@ namespace Serum_Roller
                         blatantDoses[0] = 0;
                         latentDoses[0] = 0;
                     }
+                }
+                else if (PE.Effect.Equals("invertSerum"))
+                {
+                    if (currentSerum.Equals("Orange"))
+                    {
+                        blatantColours[0] = "Blue";
+                        latentColours[0] = "Blue";
+                    }
+                    else
+                    {
+                        blatantColours[0] = "Orange";
+                        latentColours[0] = "Orange";
+                    }
+                }
+                else if (PE.Effect.Equals("chaosSerum"))
+                {
+                    blatantColours.Add("Blue");
+                    blatantColours.Add("Green");
+                    blatantColours.Add("Orange");
+                    blatantDoses.Add(1);
+                    blatantDoses.Add(1);
+                    blatantDoses.Add(1);
+                }
+                else if (PE.Effect.Equals("removeAspect"))
+                {
+                    // todo, make small UI for selecting unwanted aspect...
                 }
             }
 

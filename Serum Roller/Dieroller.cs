@@ -23,5 +23,9 @@ namespace Serum_Roller
             result += seedling.Next(1, 6);
             return result;
         }
+        public int r1d6()
+        {
+            return seedling.Next(1, 6);
+        }
     }
 }

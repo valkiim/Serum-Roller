@@ -31,13 +31,13 @@ namespace Serum_Roller.effects
             string[] latentlist = new string[11];
             LatentEffects.Add(new string[] { "nextGreen", "replaceBothWith", "Pink" });
             LatentEffects.Add(new string[] { "nextSerum", "addBlatant", "Blue" });
-            LatentEffects.Add(new string[] { "applyNatural", "Goo", "N" });
+            LatentEffects.Add(new string[] { "applyNatural", "Goo", "replace" });
             LatentEffects.Add(new string[] { "rawText", "The subjects fluids now proliferate their presently-highest aspect.", "" });
             LatentEffects.Add(new string[] { "rawText", "The subject's Hue shifts arbitrarily. Strong willed subjects may be able to direct this.", "" });
             LatentEffects.Add(new string[] { "rightNow", "greenWillpower", "" });
             LatentEffects.Add(new string[] { "rightNow", "greenAddiction", "" });
             LatentEffects.Add(new string[] { "rightNow", "addBlatant", "Green" });
-            LatentEffects.Add(new string[] { "applyNatural", "Synthetic", "" });
+            LatentEffects.Add(new string[] { "applyNatural", "Synthetic", "modify" });
             LatentEffects.Add(new string[] { "nextGreen", "repeatBlatant", "", "nextGreen", "noLatent", "" });
             LatentEffects.Add(new string[] { "rightNow", "hybridize", "" });
             for (int i = 0; i <= 10; i++)

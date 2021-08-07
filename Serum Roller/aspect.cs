@@ -8,10 +8,10 @@ namespace Serum_Roller
 {
     public class Aspect
     {
-        readonly string AKingdom;    // Such as "Animal"
-        readonly string AClass;      // like "Mammals" or "Reptiles"
-        readonly string AFamily;     // such as "Canids"
-        readonly string ASpecies;    // the thing you expect, like "frog" or "Dog"
+        public readonly string AKingdom;    // Such as "Animal"
+        public readonly string AClass;      // like "Mammals" or "Reptiles"
+        public readonly string AFamily;     // such as "Canids"
+        public readonly string ASpecies;    // the thing you expect, like "frog" or "Dog"
         Aspect()
         {
             AKingdom = "UnInit";

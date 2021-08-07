@@ -17,7 +17,7 @@ namespace Serum_Roller
                 case 4: return "Vagina";
                 case 5: return "Pudge";
                 case 6: return "Ass";
-                case 7: return "Whole Body";
+                case 7: return "Height";
                 case 8: return "Breasts";
                 case 9: return "Musculature";
                 case 10: return "Tails";

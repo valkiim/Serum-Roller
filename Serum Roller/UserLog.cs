@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Serum_Roller
 {
-    class UserLog
+    public class UserLog
     {
         //im not entirely certain what im using this for, 
         // but it will store aspects and help determine effect effects
         
-        Aspect Natural;
-        Aspect Highest;
-        Aspect Lowest;
+        public Aspect Natural;
+        public Aspect Highest;
+        public Aspect Lowest;
         List<Aspect> Aspects;
         List<AttributeFrame> Attributes;
 
@@ -22,8 +22,7 @@ namespace Serum_Roller
         {
             Aspects = new List<Aspect>();
             Attributes = new List<AttributeFrame>();
-            Attributes.Add(new AttributeFrame("growthEff", 1.0));
-            Attributes.Add(new AttributeFrame("shrinkEff", 1.0));
+            StandardAttributes();
         }
 
         public UserLog(Aspect NatIn)
@@ -31,8 +30,24 @@ namespace Serum_Roller
             Aspects = new List<Aspect>();
             Aspects.Add(NatIn);
             Natural = NatIn;
+            StandardAttributes();
+        }
+
+        public void StandardAttributes()
+        {
             Attributes.Add(new AttributeFrame("growthEff", 1.0));
             Attributes.Add(new AttributeFrame("shrinkEff", 1.0));
+            Attributes.Add(new AttributeFrame("tails", 1.0));
+            Attributes.Add(new AttributeFrame("heads", 1.0));
+            Attributes.Add(new AttributeFrame("armPairs", 1.0));
+            Attributes.Add(new AttributeFrame("legPairs", 1.0));
+            Attributes.Add(new AttributeFrame("wingPairs", 1.0));
+            Attributes.Add(new AttributeFrame("eyes", 2.0));
+            Attributes.Add(new AttributeFrame("penises", 1.0));
+            Attributes.Add(new AttributeFrame("balls", 2.0));
+            Attributes.Add(new AttributeFrame("vaginas", 1.0));
+            Attributes.Add(new AttributeFrame("taurBody", 0.0));
+            Attributes.Add(new AttributeFrame("bodies", 1.0));
         }
         public bool RemoveAspect(Aspect Input)
         {
@@ -62,6 +77,11 @@ namespace Serum_Roller
             }
             // else
             Aspects.Add(Input);
+            return true;
+        }
+        public bool setNatural(Aspect input)
+        {
+            Natural = input;
             return true;
         }
         public bool ModifyAttAdd(string att, double mod)

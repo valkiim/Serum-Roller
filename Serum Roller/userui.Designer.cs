@@ -28,13 +28,7 @@ namespace Serum_Roller
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.blatantPinEffectLabel = new System.Windows.Forms.Label();
-            this.BlatantEffectList = new System.Windows.Forms.CheckedListBox();
-            this.blatantEffectLabel = new System.Windows.Forms.Label();
-            this.latentpineffectlabel = new System.Windows.Forms.Label();
-            this.LatentEffectList = new System.Windows.Forms.CheckedListBox();
-            this.latentEffectLabel = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserUi));
             this.rollSerumButton = new System.Windows.Forms.Button();
             this.SerumFamilySelect = new System.Windows.Forms.ComboBox();
             this.SerumIDField = new System.Windows.Forms.TextBox();
@@ -50,88 +44,8 @@ namespace Serum_Roller
             this.randomAspectButton = new System.Windows.Forms.Button();
             this.RandomAspectLabel = new System.Windows.Forms.Label();
             this.helpbutton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.effectLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Location = new System.Drawing.Point(12, 12);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.blatantPinEffectLabel);
-            this.splitContainer1.Panel1.Controls.Add(this.BlatantEffectList);
-            this.splitContainer1.Panel1.Controls.Add(this.blatantEffectLabel);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.latentpineffectlabel);
-            this.splitContainer1.Panel2.Controls.Add(this.LatentEffectList);
-            this.splitContainer1.Panel2.Controls.Add(this.latentEffectLabel);
-            this.splitContainer1.Size = new System.Drawing.Size(699, 331);
-            this.splitContainer1.SplitterDistance = 152;
-            this.splitContainer1.TabIndex = 2;
-            // 
-            // blatantPinEffectLabel
-            // 
-            this.blatantPinEffectLabel.AutoSize = true;
-            this.blatantPinEffectLabel.Location = new System.Drawing.Point(3, 20);
-            this.blatantPinEffectLabel.Name = "blatantPinEffectLabel";
-            this.blatantPinEffectLabel.Size = new System.Drawing.Size(53, 13);
-            this.blatantPinEffectLabel.TabIndex = 2;
-            this.blatantPinEffectLabel.Text = "Pin Effect";
-            // 
-            // BlatantEffectList
-            // 
-            this.BlatantEffectList.FormattingEnabled = true;
-            this.BlatantEffectList.HorizontalScrollbar = true;
-            this.BlatantEffectList.Location = new System.Drawing.Point(0, 38);
-            this.BlatantEffectList.Name = "BlatantEffectList";
-            this.BlatantEffectList.Size = new System.Drawing.Size(696, 109);
-            this.BlatantEffectList.TabIndex = 1;
-            // 
-            // blatantEffectLabel
-            // 
-            this.blatantEffectLabel.AutoSize = true;
-            this.blatantEffectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.blatantEffectLabel.Location = new System.Drawing.Point(283, 15);
-            this.blatantEffectLabel.Name = "blatantEffectLabel";
-            this.blatantEffectLabel.Size = new System.Drawing.Size(115, 20);
-            this.blatantEffectLabel.TabIndex = 0;
-            this.blatantEffectLabel.Text = "Blatant Effects";
-            // 
-            // latentpineffectlabel
-            // 
-            this.latentpineffectlabel.AutoSize = true;
-            this.latentpineffectlabel.Location = new System.Drawing.Point(3, 27);
-            this.latentpineffectlabel.Name = "latentpineffectlabel";
-            this.latentpineffectlabel.Size = new System.Drawing.Size(53, 13);
-            this.latentpineffectlabel.TabIndex = 3;
-            this.latentpineffectlabel.Text = "Pin Effect";
-            // 
-            // LatentEffectList
-            // 
-            this.LatentEffectList.FormattingEnabled = true;
-            this.LatentEffectList.HorizontalScrollbar = true;
-            this.LatentEffectList.Location = new System.Drawing.Point(0, 49);
-            this.LatentEffectList.Name = "LatentEffectList";
-            this.LatentEffectList.Size = new System.Drawing.Size(696, 124);
-            this.LatentEffectList.TabIndex = 1;
-            // 
-            // latentEffectLabel
-            // 
-            this.latentEffectLabel.AutoSize = true;
-            this.latentEffectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.latentEffectLabel.Location = new System.Drawing.Point(283, 10);
-            this.latentEffectLabel.Name = "latentEffectLabel";
-            this.latentEffectLabel.Size = new System.Drawing.Size(110, 20);
-            this.latentEffectLabel.TabIndex = 0;
-            this.latentEffectLabel.Text = "Latent Effects";
             // 
             // rollSerumButton
             // 
@@ -286,11 +200,22 @@ namespace Serum_Roller
             this.helpbutton.UseVisualStyleBackColor = true;
             this.helpbutton.Click += new System.EventHandler(this.helpbutton_Click);
             // 
-            // userui
+            // effectLabel
+            // 
+            this.effectLabel.AutoSize = true;
+            this.effectLabel.Location = new System.Drawing.Point(13, 13);
+            this.effectLabel.MaximumSize = new System.Drawing.Size(700, 0);
+            this.effectLabel.Name = "effectLabel";
+            this.effectLabel.Size = new System.Drawing.Size(686, 52);
+            this.effectLabel.TabIndex = 19;
+            this.effectLabel.Text = resources.GetString("effectLabel.Text");
+            // 
+            // UserUi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 415);
+            this.Controls.Add(this.effectLabel);
             this.Controls.Add(this.helpbutton);
             this.Controls.Add(this.RandomAspectLabel);
             this.Controls.Add(this.randomAspectButton);
@@ -306,33 +231,20 @@ namespace Serum_Roller
             this.Controls.Add(this.SerumIDField);
             this.Controls.Add(this.SerumFamilySelect);
             this.Controls.Add(this.rollSerumButton);
-            this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "userui";
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "UserUi";
             this.Text = "Val\'s Serum Roller";
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Label blatantEffectLabel;
-        private System.Windows.Forms.Label latentEffectLabel;
         private System.Windows.Forms.Button rollSerumButton;
         private System.Windows.Forms.ComboBox SerumFamilySelect;
-        private System.Windows.Forms.Label blatantPinEffectLabel;
-        private System.Windows.Forms.CheckedListBox BlatantEffectList;
-        private System.Windows.Forms.Label latentpineffectlabel;
-        private System.Windows.Forms.CheckedListBox LatentEffectList;
         private System.Windows.Forms.TextBox SerumIDField;
         private System.Windows.Forms.Button TFLocationButton;
         private System.Windows.Forms.Button SizeLocationButton;
@@ -346,6 +258,7 @@ namespace Serum_Roller
         private System.Windows.Forms.Button randomAspectButton;
         private System.Windows.Forms.Label RandomAspectLabel;
         private System.Windows.Forms.Button helpbutton;
+        private System.Windows.Forms.Label effectLabel;
     }
 }
 

@@ -33,6 +33,19 @@ namespace Serum_Roller
             int Result = seedling.Next(0, AspectList.Count);
             return AspectList[Result];
         }
+        public Aspect Find(string species)
+        {
+            foreach (Aspect As in AspectList)
+            {
+                if (species.Equals(As.ASpecies))
+                {
+                    return As;
+                }
+            }
+            Aspect newAspect = new Aspect(species);
+            AspectList.Add(newAspect);
+            return newAspect;
+        }
         void PopulateList()
         {
             AspectList.Add(new Aspect("Animal", "Mammal", "Canine", "Golden Jackal"));

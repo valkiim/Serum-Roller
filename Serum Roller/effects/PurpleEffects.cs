@@ -19,7 +19,7 @@ namespace Serum_Roller.effects
             //Blatants
             BlatantEffects.Add(new string[] { "rawText", "The subject's Size theft aura is now 5 meters, or increases by 5 meters"});
             BlatantEffects.Add(new string[] { "growMax", "head", "3", "growMax", "tail", "3", "grow", "height", "0.15" });
-            BlatantEffects.Add(new string[] { "applyNatural", "Synthetic", "Y" });
+            BlatantEffects.Add(new string[] { "applyNatural", "Synthetic", "modify" });
             BlatantEffects.Add(new string[] { "rawText", "If the subject has a penis, but does not have tailcocks, they gain 2 tail cocks. These special endowments are double the size of the subject's normal endowments.", "", "transform", "lower body", "Naga", "grow", "height", "0.1", "grow", "tail", "0.1", "grow", "genitals", "0.1" });
             BlatantEffects.Add(new string[] { "growMax", "wings", "2", "grow", "height", "0.1", "grow", "tail", "0.1", "grow", "genitals", "0.1", "grow", "production", "0.15" });
             BlatantEffects.Add(new string[] { "rightNow", "AddBlatant", "Purple", "nextSerum", "doubleDose", "" });

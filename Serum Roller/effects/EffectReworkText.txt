@@ -36,7 +36,6 @@ NextPink
 NextTwo		// next serum, and the one after that
 NextSize	// until the next orange or blue serum
 untilOrangeOrPink	// until an orange or pink is drunk
-Alternative 	// occurs IF the prior effect is refused, message box- next 3 words
 Condition	// occurs when Text Threshold is met, Display next string a message, next 3 words = effect
 	Else	// occurs if a condition is not met, ginored if met. nexxt 3 strings= effect
 Effects

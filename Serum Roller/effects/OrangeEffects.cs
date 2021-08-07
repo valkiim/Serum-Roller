@@ -34,7 +34,7 @@ namespace Serum_Roller
             LatentEffects.Add(new string[] { "nextSerum", "repeatBlatant", "" });
             LatentEffects.Add(new string[] { "grow", "Penis", "0.10", "grow", "Balls", "0.10", "grow", "Breasts", "0.10", "grow", "Ass", "0.10" });
             LatentEffects.Add(new string[] { "increase", "growthEff", "0.1" });
-            LatentEffects.Add(new string[] { "grow", "height", "0.1");
+            LatentEffects.Add(new string[] { "grow", "height", "0.1" });
             LatentEffects.Add(new string[] { "increase", "growthEff", "0.2" });
             LatentEffects.Add(new string[] { "rightNow", "addBlatant", "Green" });
             LatentEffects.Add(new string[] { "rightNow", "repeatBlatant", "" });

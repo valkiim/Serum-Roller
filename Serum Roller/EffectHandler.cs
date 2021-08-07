@@ -11,25 +11,30 @@ namespace Serum_Roller
     public class EffectHandler
     {
         BlueEffects blue;
-        effects.GreenEffects green;
+        GreenEffects green;
         OrangeEffects orange;
         PinkEffects pink;
-        effects.PurpleEffects purple;
+        PurpleEffects purple;
         UserLog subject;
-        List<string> futureEffects;
+        List<string> fuEff;
         Dieroller die;
         AspectRoller AR;
+        PendingEffectsHandler PEH;
+        
+
         public EffectHandler(string userNatural)
         {
             blue = new BlueEffects();
-            green = new effects.GreenEffects();
+            green = new GreenEffects();
             orange = new OrangeEffects();
             pink = new PinkEffects();
-            purple = new effects.PurpleEffects();
-            Aspect usrNat = new Aspect("UserInput", "UserInput", "UserInput", userNatural);
+            purple = new PurpleEffects();
+            Aspect usrNat = new Aspect(userNatural);
             subject = new UserLog(usrNat);
             die = new Dieroller();
             AR = AspectRoller.Instance;
+            PEH = new PendingEffectsHandler();  // metaserum effects
+            fuEff = new List<string>();         // queueing up effects
         }
         public sEffect get(string colour, string effectType, int roll)
         {
@@ -73,14 +78,35 @@ namespace Serum_Roller
         //all of these process the die roll
         public string RollResults(string colour, int first, int second)
         {
-            // this function passes the ball off to the recursive effect processor
-            
-            string[] LatentResults = get(colour, "Latent", second).ToStringArr();
-            string[] BlatantResults = get(colour, "Blatant", first).ToStringArr();
-            
-            string result = ParseEffects(LatentResults, 0);
-            result = result + " " + ParseEffects(BlatantResults, 0);
+            // this function passes the ball off to the recursive effect 
+            // process serum-colour triggers(caused by prior serums, removing them)
+            List<string> blatantColours = new List<string> { colour };
+            List<string> latentColour = new List<string> { colour };
 
+            List<PendingEffect> ActiveEffects = PEH.TriggeredEffects(colour);
+            foreach (PendingEffect PE in ActiveEffects)
+            {
+                if (PE.Effect.Equals("addBlatant"))
+                {
+                    blatantColours.Add(PE.Parame);
+                } else if (PE.Effect.Equals("addLatent"))
+                {
+
+                }
+            }
+
+            string[] LatentResults = get(latentColour, "Latent", second).ToStringArr();
+            string[] BlatantResults = get(blatantColour, "Blatant", first).ToStringArr();
+            string[] longEff = new string[fuEff.Count];
+            for (int i=0; i<fuEff.Count; i++)
+            {
+                longEff[i] = fuEff[i];
+            }
+            string result = ParseEffects(longEff, 0);
+            result = result + ParseEffects(LatentResults, 0);
+            result = result + ParseEffects(BlatantResults, 0);
+            // process RIGHT NOW triggers (caused by this serum, removing them)
+            
             return "notdoneyet";
         }
         private string pCondition(string[] Eff, int i)
@@ -266,7 +292,280 @@ namespace Serum_Roller
             }
             return "The Subject's " + location + " transforms into a(n) " + aspect + " " + location + "!\n" + ParseEffects(Eff, i + 3);
         }
+        private string pApplyAspect(string[] Eff, int i)
+        {   // apply aspect, if EF2 = y, force tf now, otherwise, force if dup aspect. 
+            bool tfTrigger = Eff[i + 2].Equals("Y");
+            if (!(subject.AddAspect(AR.Find(Eff[i + 1]))))
+            {   // aspect not added, force tf
+                tfTrigger = true;
+            }
+            if (tfTrigger)
+            {
+                return ParseEffects(new string[] { "transform", "random", Eff[i + 2] }, 0) + ParseEffects(Eff, i + 3);
+            }
+            else
+            {
+                return ParseEffects(Eff, i + 3);
+            }
+        }
+        private string pApplyNatural(string[] Eff, int i)
+        {
+            Aspect Nat;
+            if (Eff[i + 2].Equals("modify"))
+            {
+                Nat = AR.Find(Eff[i + 1] + "-" + subject.Natural.ToString());
+            }
+            else
+            {
+                Nat = AR.Find(Eff[i + 1]);
+            }
+            subject.setNatural(Nat);
+            return "The subject's entire body has become " + Nat.ToString() + "!\n" + ParseEffects(Eff, i + 3);
+        }
+        private string pGrowNew(string[] Eff, int i)
+        {
+            string SAspect = Eff[i + 1];
+            Aspect AAspect;
+            if (SAspect.Equals("random"))
+            {
+                AAspect = AR.RollAspect();
+            }
+            else if(SAspect.Equals("natural"))
+            {
+                AAspect = subject.Natural;
+            }
+            else if (SAspect.Equals("highest"))
+            {
+                AAspect= subject.Highest;
+            }
+            else
+            {
+                AAspect = AR.Find(Eff[i + 1]);
+            }
+            SAspect = AAspect.ToString();
 
+            string SLocation = Eff[i + 2];  // location as used by the locationhandler
+            string PLocation;               // location as used by Userlog
+            if (SLocation.Equals("random"))
+            {
+                SLocation = Locationhandler.TFLocation(die.roll());
+            }
+            if (SLocation.Equals("Subject's Choice"))
+            {
+                LocationSelect LSoc = new LocationSelect("growNew");
+                LSoc.ShowDialog();
+                SLocation = LSoc.GetChecked();
+                LSoc.Dispose();
+            }
+            PLocation = SLocationToPLocation(SLocation);
+            string output = growNewLocationText(PLocation, 1, AAspect);
+            subject.ModifyAttAdd(PLocation, 1.0);
+            return output + ParseEffects(Eff, i+3);
+        }
+        private string pGrowMax(string[] Eff, int i)
+        {
+            Aspect AAspect = subject.Natural;
+            string SLocation = Eff[i + 1];
+            if (SLocation.Equals("Subject's Choice"))
+            {
+                LocationSelect LSoc = new LocationSelect("growNew");
+                LSoc.ShowDialog();
+                SLocation = LSoc.GetChecked();
+                LSoc.Dispose();
+            }
+            string PLocation = SLocationToPLocation(SLocation);
+            int number = int.Parse(Eff[i + 2]);
+            string output = growNewLocationText(PLocation, number, AAspect);
+            subject.ModifyAttAdd(PLocation, number);
+            return output + ParseEffects(Eff, i + 3);
+        }
+        private string pTimingTrigger(string[]  Eff, int i)
+        {
+            PEH.AddEffect(Eff[i], Eff[i + 1], Eff[i + 2]);
+            return ParseEffects(Eff, i+3);
+        }
+        private string growNewLocationText(string PLocation, int number, Aspect LAspect)
+        {
+            string SAspect = LAspect.ToString();
+            string outText = "The Subject grows ";
+            if (PLocation.Equals("eyes"))
+            {
+                if (number > 1)
+                {
+                    outText += number.ToString() + " new " + SAspect + " eyes!\n";
+                }
+                else
+                {
+                    outText += "one new " + SAspect + " eye!\n";
+                }
+            }
+            else if (PLocation.Equals("heads"))
+            {
+                if (number > 1)
+                {
+                    outText += number.ToString() + " new " + SAspect + " heads!\n";
+                }
+                else
+                {
+                    outText += "one new " + SAspect + " head!\n";
+                }
+            }
+            else if (PLocation.Equals("taurBody"))
+            {
+                if (number > 1)
+                {
+                    outText += number.ToString() + " new " + SAspect + "-taur bodies!\n";
+                }
+                else
+                {
+                    outText += "a new " + SAspect + "-taur body!\n";
+                }
+            }
+            else if (PLocation.Equals("armPairs"))
+            {
+                if (number > 1)
+                {
+                    outText += number.ToString() + " new pairs of " + SAspect + " arms!\n";
+                }
+                else
+                {
+                    outText += "a new pair of " + SAspect + " arms!\n";
+                }
+            }
+            else if (PLocation.Equals("legPairs"))
+            {
+                if (number > 1)
+                {
+                    outText += number.ToString() + " new pairs of " + SAspect + " legs!\n";
+                }
+                else
+                {
+                    outText += "a new pair of " + SAspect + " legs!\n";
+                }
+            }
+            else if (PLocation.Equals("tails"))
+            {
+                if (number > 1)
+                {
+                    outText += number.ToString() + " new " + SAspect + " tails!\n";
+                }
+                else
+                {
+                    outText += "a new " + SAspect + " tail!\n";
+                }
+            }
+            else if (PLocation.Equals("bodies"))
+            {
+                if (number > 1)
+                {
+                    outText += number.ToString() + " " + SAspect + " bodies under their control!\n";
+                }
+                else
+                {
+                    outText += "a new " + SAspect + " body under their control!\n";
+                }
+            }
+            else if (PLocation.Equals("penises"))
+            {
+                if (subject.getAttribute("penises")==0 && subject.getAttribute("balls") > 0)
+                {
+                    if (number > 1)
+                    {
+                        outText += number.ToString() + " new " + SAspect + " cocks, finally putting their balls to use!\n";
+                    }
+                    else
+                    {
+                        outText += "a new " + SAspect + " cock, finally putting their balls to use!\n";
+                    }
+                }
+                if (number > 1)
+                {
+                    outText += number.ToString() + " new, needy " + SAspect + " cocks!\n";
+                }
+                else
+                {
+                    outText += "a new, needy " + SAspect + " cock!\n";
+                }
+            }
+            else if (PLocation.Equals("vaginas"))
+            {
+                if (number > 1)
+                {
+                    outText += number.ToString() + " plush " + SAspect + " pussies!\n";
+                }
+                else
+                {
+                    if (subject.getAttribute("vaginas") > 0)
+                    {
+                        outText += "another plush " + SAspect + " pussy!\n";
+                    }
+                    else
+                    {
+                        outText += "a brand new " + SAspect + " pussy!\n";
+                    }
+                }
+            }
+            else if (PLocation.Equals("balls"))
+            { 
+                if (subject.getAttribute("penises") == 0)
+                {
+                    if (number > 1)
+                    {
+                        outText += number.ToString() + " new " + SAspect + " balls, but what are they for?!\n";
+                    }
+                    else
+                    {
+                        outText += "a single new " + SAspect + " testicle... why?\n";
+                    }
+                }
+                else
+                {
+                    if (number > 1)
+                    {
+                        outText += number.ToString() + " additional, heavy " + SAspect + " balls!\n";
+                    }
+                    else
+                    {
+                        outText += "a single " + SAspect + " ball.\n";
+                    }
+                }
+            }
+            else
+            {
+                outText += "something that val did not consider, called " + PLocation + ".\n";
+            }
+            return outText;
+        }
+        string SLocationToPLocation(string SLocation)
+        {
+            if (SLocation.Equals("Eyes"))           { return "eyes"; }
+            else if (SLocation.Equals("Head"))      { return "heads"; }
+            else if (SLocation.Equals("Lower Body"))      { return "taurBody"; }
+            else if (SLocation.Equals("Left Arm")||SLocation.Equals("Right Arm")) { return "armPairs"; }
+            else if (SLocation.Equals("Left Leg")||SLocation.Equals("Right Leg")) { return "legpairs"; }
+            else if (SLocation.Equals("Tail"))      { return "tails"; }
+            else if (SLocation.Equals("Torso"))     { return "bodies"; }
+            else if (SLocation.Equals("Genitals"))
+            {
+                int res = die.r1d6();
+                if (res <= 2)
+                {
+                    return "penises";
+                }
+                else if (res >= 5)
+                {
+                    return "vaginas";
+                }
+                else
+                {
+                    return "balls";
+                }
+            }
+            else
+            {
+                return "Subject's Choice";
+            }
+        }
         public string ParseEffects(string[] Eff, int i)
         {   //i = index, now delegated out!
             if (Eff.Length <= i) { return ""; } //preventing out of Range errors
@@ -311,9 +610,22 @@ namespace Serum_Roller
             {
                 return pTransform(Eff, i);
             }
-
-
-            else return "";  //failsafe
+            else if (Eff[i].Equals("applyAspect"))
+            {
+                return pApplyAspect(Eff, i);
+            }
+i           else if (Eff[i].Equals("applyNatural"))
+            {
+                return pApplyNatural(Eff, i);
+            }
+            else if (Eff[i].Equals("growNew"))
+            {
+                return pGrowNew(Eff, i);
+            }
+            else
+            {
+                return pTimingTrigger(Eff, i);  //else, timing trigger
+            }
         }
         string ToPercent(double AllegedDouble)
         {

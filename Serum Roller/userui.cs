@@ -17,7 +17,7 @@ namespace Serum_Roller
     {
         EffectHandler EH;
         Dieroller Die;
-        Locationhandler Loc;
+
         AspectRoller AR;
         public UserUi()
         {
@@ -29,10 +29,11 @@ namespace Serum_Roller
             SerumArchive.Items.Add("User: " + user);
             EH = new EffectHandler(usrNat);
             Die = new Dieroller();
-            Loc = new Locationhandler();
-            AR = new AspectRoller();
+
+            AR = AspectRoller.Instance;
             SerumIDField.Text = "SerumID";
             SerumFamilySelect.Text = "Choose Colour";
+            welc.Dispose();
         }
         private void RollSerumButton_Click(object sender, EventArgs e)
         {
@@ -103,7 +104,7 @@ namespace Serum_Roller
             }
             return newID;
         }
-        sEffect[] ParseID(string ID)
+        string ParseID(string ID)
         {
             string colour;
             int blatant;
@@ -183,11 +184,11 @@ namespace Serum_Roller
         }
         private void TFLocationButton_Click(object sender, EventArgs e)
         {
-            LocationResultLabel.Text = Loc.TFLocation(Die.roll());
+            LocationResultLabel.Text = Locationhandler.TFLocation(Die.roll());
         }
         private void SizeLocationButton_Click(object sender, EventArgs e)
         {
-            LocationResultLabel.Text = Loc.SizeLocation(Die.roll());
+            LocationResultLabel.Text = Locationhandler.SizeLocation(Die.roll());
         }
         private void AddBlatantButton_Click(object sender, EventArgs e)
         {

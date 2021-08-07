@@ -59,11 +59,19 @@
     </Compile>
     <Compile Include="effects\GreenEffects.cs" />
     <Compile Include="effects\OrangeEffects.cs" />
+    <Compile Include="effects\pendingEffect.cs" />
+    <Compile Include="effects\PendingEffectshandler.cs" />
     <Compile Include="effects\PurpleEffects.cs" />
     <Compile Include="effects\sEffect.cs" />
     <Compile Include="effects\serumEffects.cs" />
     <Compile Include="effects\PinkEffects.cs" />
     <Compile Include="Locationhandler.cs" />
+    <Compile Include="LocationSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LocationSelect.Designer.cs">
+      <DependentUpon>LocationSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="SerumDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +95,9 @@
     </Compile>
     <EmbeddedResource Include="effects\conditionForm.resx">
       <DependentUpon>conditionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocationSelect.resx">
+      <DependentUpon>LocationSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SerumDetails.resx">
       <DependentUpon>SerumDetails.cs</DependentUpon>

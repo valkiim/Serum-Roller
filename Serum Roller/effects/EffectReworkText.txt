@@ -2,28 +2,11 @@
 [Increase/Decrease/normalize/multiply]	/ [growthEff/shrinkEff]	/ [magnitude]
 [Transform]		/ [Location]			/ [Aspect]
 [Rawtext]		/ [Text Message]		/ N/A
-[TimingTrigger]		/ [effects]			/ [Colour]
 [ApplyAspect]		/ [Aspect]			/ [force tf Y/N]
-[ApplyNatural]		/ [Aspect]// Causes TF if aspect already applied// caused by above naturally, actually
+[ApplyNatural]		/ [Aspect]			/ [modify/replace]
 [growNew]		/ [Aspect]			/ [location]
 [growMax]		/ [location]			/ [number]
-
-Metaserums - 
-Next orange/Blue, invert orange/Blue (both effects)
-Blatant occurs again after next serum
-Also include green blatant
-Blatant effect occurs twice
-Next orange is Purple (both effects)
-next green is pink (both effects)
-Also include Blue Blatant
-Green compulsion- next serum conditional orange/blue blatant
-override- Repeat blatant, no latent
-Next two serums are double doses
-roll Blue blatant, no latent, until orange or Pink
-additional latent, and occurs again
-orange Rebound, fixed effectiveness
-Nullify everything but (pink && blue | orange | green)
-roll 3x on next serum, chooses favorite. 
+[TimingTrigger]		/ [effects]			/ [Colour]
 
 Timing triggers:
 rightNow 	// because I cant spell immediate
@@ -36,6 +19,7 @@ NextPink
 NextTwo		// next serum, and the one after that
 NextSize	// until the next orange or blue serum
 untilOrangeOrPink	// until an orange or pink is drunk
+
 Condition	// occurs when Text Threshold is met, Display next string a message, next 3 words = effect
 	Else	// occurs if a condition is not met, ginored if met. nexxt 3 strings= effect
 Effects

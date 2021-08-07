@@ -70,18 +70,18 @@ namespace Serum_Roller
         string createID(string colour, int blatant, int latent)
         {
             string newID = "";
-            if (colour == "Blue")
+            if (colour.Equals("Blue"))
             {
                 newID = "L";
-            } else if(colour == "Green"){
+            } else if(colour.Equals("Green")){
                 newID = "G";
-            } else if (colour == "Orange")
+            } else if (colour.Equals("Orange"))
             {
                 newID = "R";
-            }else if (colour == "Pink")
+            }else if (colour.Equals("Pink"))
             {
                 newID = "P";
-            }else if(colour == "Purple")
+            }else if(colour.Equals("Purple"))
             {
                 newID = "V";
             }

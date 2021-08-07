@@ -20,10 +20,13 @@ namespace Serum_Roller
         Dieroller die;
         AspectRoller AR;
         PendingEffectsHandler PEH;
-        
+        string currentSerum;
+        int blRoll;
+        int laRoll;
 
         public EffectHandler(string userNatural)
         {
+            
             blue = new BlueEffects();
             green = new GreenEffects();
             orange = new OrangeEffects();
@@ -35,6 +38,10 @@ namespace Serum_Roller
             AR = AspectRoller.Instance;
             PEH = new PendingEffectsHandler();  // metaserum effects
             fuEff = new List<string>();         // queueing up effects
+            currentSerum = "none";
+            blRoll = 0;
+            laRoll = 0;
+
         }
         public sEffect get(string colour, string effectType, int roll)
         {
@@ -78,20 +85,71 @@ namespace Serum_Roller
         //all of these process the die roll
         public string RollResults(string colour, int first, int second)
         {
+            blRoll = first;
+            laRoll = second;
             // this function passes the ball off to the recursive effect 
             // process serum-colour triggers(caused by prior serums, removing them)
-            List<string> blatantColours = new List<string> { colour };
-            List<string> latentColour = new List<string> { colour };
-
+            List<string> blatantColours = new List<string> { colour };// these keep track of what serum is to be rolled. 
+            List<string> latentColours = new List<string> { colour };
+            List<int> blatantDoses = new List<int> { 1 };
+            List<int> latentDoses = new List<int> { 1 };
             List<PendingEffect> ActiveEffects = PEH.TriggeredEffects(colour);
             foreach (PendingEffect PE in ActiveEffects)
             {
+                // these catch "do it more than once" actions
+                if (PE.Timing.Equals("nextTwo"))
+                {
+                    PEH.AddEffect("nextSerum", PE.Effect, PE.Parame);
+                }
+                else if(PE.Timing.Equals("untilOrangeOrPink") && (currentSerum.Equals("Orange") || currentSerum.Equals("Pink")))
+                {
+                    PEH.AddEffect(PE.Timing, PE.Effect, PE.Parame);
+                }
+
                 if (PE.Effect.Equals("addBlatant"))
                 {
                     blatantColours.Add(PE.Parame);
-                } else if (PE.Effect.Equals("addLatent"))
+                }
+                else if (PE.Effect.Equals("addLatent"))
                 {
-
+                    latentColours.Add(PE.Parame);
+                } else if (PE.Effect.Equals("replaceBothwith"))
+                {
+                    latentColours[0] = PE.Parame;
+                    blatantColours[0] = PE.Parame;
+                }
+                else if (PE.Effect.Equals("greenAddiction"))
+                {
+                    if (currentSerum.Equals("Green"))
+                    {
+                        blatantColours.Add("Orange");
+                    }
+                    else
+                    {
+                        blatantColours.Add("Blue");
+                    }
+                }
+                else if (PE.Effect.Equals("doubleDose"))
+                {
+                    blatantDoses[0] = 2;
+                    latentDoses[0] = 2;
+                }
+                else if (PE.Effect.Equals("noLatent"))
+                {
+                    latentDoses[0] = 0;
+                }
+                else if (PE.Effect.Equals("onlyPinkOr"))
+                {
+                    if (currentSerum.Equals("Pink") || currentSerum.Equals(PE.Parame))
+                    {
+                        // the serum is allowed to exist and the curse is broken!
+                    }
+                    else
+                    {
+                        PEH.AddEffect(PE.Timing, PE.Effect, PE.Parame);
+                        blatantDoses[0] = 0;
+                        latentDoses[0] = 0;
+                    }
                 }
             }
 
@@ -381,7 +439,56 @@ namespace Serum_Roller
         }
         private string pTimingTrigger(string[]  Eff, int i)
         {
-            PEH.AddEffect(Eff[i], Eff[i + 1], Eff[i + 2]);
+            if (Eff[i + 1].Equals("repeatBlatant"))
+            {
+                string output = "";
+                if (currentSerum.Equals("Blue"))
+                {
+                    output = "L";
+                }
+                else if (currentSerum.Equals("Green"))
+                {
+                    output = "G";
+                }
+                else if (currentSerum.Equals("Orange"))
+                {
+                    output = "R";
+                }
+                else if (currentSerum.Equals("Pink"))
+                {
+                    output = "P";
+                }
+                else if (currentSerum.Equals("Purple"))
+                {
+                    output = "V";
+                }
+                PEH.AddEffect(Eff[i], Eff[i + 1], output + blRoll.ToString());
+            } else if (Eff[i + 1].Equals("repeatLatent")){
+                string output = "";
+                if (currentSerum.Equals("Blue"))
+                {
+                    output = "L";
+                }
+                else if (currentSerum.Equals("Green"))
+                {
+                    output = "G";
+                }
+                else if (currentSerum.Equals("Orange"))
+                {
+                    output = "R";
+                }
+                else if (currentSerum.Equals("Pink"))
+                {
+                    output = "P";
+                }
+                else if (currentSerum.Equals("Purple"))
+                {
+                    output = "V";
+                }
+                PEH.AddEffect(Eff[i], Eff[i + 1], output + laRoll.ToString());
+            } else {
+                PEH.AddEffect(Eff[i], Eff[i + 1], Eff[i + 2]);
+            }
             return ParseEffects(Eff, i+3);
         }
         private string growNewLocationText(string PLocation, int number, Aspect LAspect)

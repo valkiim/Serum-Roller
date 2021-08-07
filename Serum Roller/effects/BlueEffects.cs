@@ -36,7 +36,7 @@ namespace Serum_Roller
             LatentEffects.Add(new string[] { "increase", "shrinkEff", "0.2" });
             LatentEffects.Add(new string[] { "nextSerum", "repeatBlatant", ""});
             LatentEffects.Add(new string[] { "thisAndNext", "addLatent", "Blue" });
-            LatentEffects.Add(new string[] { "rightNow", "add50Blat", "Orange"});
+            LatentEffects.Add(new string[] { "rightNow", "addBlatant", "Orange"});
             LatentEffects.Add(new string[] { "RawText", "The Subject can store up to 10% of their size in an extra dimensional battery, retrievable at will. Increases by 10% each time this latent is afflicted, capping at 100%", "" });
             LatentEffects.Add(new string[] { "RawText", "Any further shrinking will apply growth to the attendant/researcher.", "" });
             

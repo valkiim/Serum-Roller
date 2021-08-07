@@ -10,13 +10,92 @@ namespace Serum_Roller
     {
         //im not entirely certain what im using this for, 
         // but it will store aspects and help determine effect effects
-        
-        public Aspect Natural;
-        public Aspect Highest;
-        public Aspect Lowest;
+
+        private Aspect natural;
+        private Aspect highest;
+        private Aspect lowest;
         List<Aspect> Aspects;
         List<AttributeFrame> Attributes;
 
+        public Aspect GetNatural()
+        {
+            return natural;
+        }
+
+        public void SetNatural(Aspect value)
+        {
+            bool hasit = false;
+            foreach (Aspect Pect in Aspects)
+            {
+                if (value.Equals(Pect))
+                {
+                    hasit = true;
+                }
+            }
+            if (hasit)
+            {
+                natural = value;
+            }
+            else
+            {
+                Aspects.Add(value);
+                natural = value;
+            }
+        }
+
+        public Aspect GetHighest()
+        {
+
+            bool hasit = false;
+            foreach (Aspect Pect in Aspects)
+            {
+                if (highest.Equals(Pect))
+                {
+                    hasit = true;
+                }
+            }
+            if (hasit)
+            {
+                return highest;
+            }
+            else
+            {
+                SelectHighest();
+                return highest;
+            }
+            
+        }
+
+        public void SetHighest(Aspect value)
+        {
+            highest = value;
+        }
+
+        public Aspect GetLowest()
+        {
+            bool hasit = false;
+            foreach (Aspect Pect in Aspects)
+            {
+                if (lowest.Equals(Pect))
+                {
+                    hasit = true;
+                }
+            }
+            if (hasit)
+            {
+                return lowest;
+            }
+            else
+            {
+                SelectLowest();
+                return lowest;
+            }
+        }
+
+        public void SetLowest(Aspect value)
+        {
+            lowest = value;
+        }
 
         UserLog()
         {
@@ -27,9 +106,8 @@ namespace Serum_Roller
 
         public UserLog(Aspect NatIn)
         {
-            Aspects = new List<Aspect>();
-            Aspects.Add(NatIn);
-            Natural = NatIn;
+            Aspects = new List<Aspect> { NatIn };
+            SetNatural(NatIn);
             StandardAttributes();
         }
 
@@ -48,6 +126,18 @@ namespace Serum_Roller
             Attributes.Add(new AttributeFrame("vaginas", 1.0));
             Attributes.Add(new AttributeFrame("taurBody", 0.0));
             Attributes.Add(new AttributeFrame("bodies", 1.0));
+        }
+        public void SelectHighest()
+        {
+            AspectRoller AR = AspectRoller.Instance;
+            aspectSelect AS = new aspectSelect("highest", getUserAspects());
+            SetHighest(AR.Find( AS.selected[0]));
+        }
+        public void SelectLowest()
+        {
+            AspectRoller AR = AspectRoller.Instance;
+            aspectSelect AS = new aspectSelect("lowest", getUserAspects());
+            SetHighest(AR.Find(AS.selected[0]));
         }
         public bool RemoveAspect(Aspect Input)
         {
@@ -81,7 +171,7 @@ namespace Serum_Roller
         }
         public bool setNatural(Aspect input)
         {
-            Natural = input;
+            SetNatural(input);
             return true;
         }
         public bool ModifyAttAdd(string att, double mod)
@@ -132,6 +222,24 @@ namespace Serum_Roller
                 }
             }
             return 0.0;
+        }
+        public string[] getUserAspects()
+        {
+            string[] result = new string[Aspects.Count()];
+            for (int i=0; i<Aspects.Count(); i++)
+            {
+                result[i] = Aspects.ToString();
+            }
+            return result;
+        }
+        public bool RemoveAllAspects()
+        {
+            // for when you do not want aspects anymore!
+            foreach (Aspect pect in Aspects)
+            {
+                Aspects.Remove(pect);
+            }
+            return true;
         }
     }
 }

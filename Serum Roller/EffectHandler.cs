@@ -26,7 +26,7 @@ namespace Serum_Roller
 
         public EffectHandler(string userNatural)
         {
-            
+
             blue = new BlueEffects();
             green = new GreenEffects();
             orange = new OrangeEffects();
@@ -49,38 +49,38 @@ namespace Serum_Roller
             if (colour.Equals("Blue"))
             {
                 if (effectType.Equals("Blatant"))
-                {temp= GetBlueBlatant(roll);}
+                { temp = GetBlueBlatant(roll); }
                 else
-                {temp= GetBlueLatent(roll);}
+                { temp = GetBlueLatent(roll); }
             }
             else if (colour.Equals("Green"))
             {
                 if (effectType.Equals("Blatant"))
-                {temp= GetGreenBlatant(roll);}
+                { temp = GetGreenBlatant(roll); }
                 else
-                {temp= GetGreenLatent(roll);}
+                { temp = GetGreenLatent(roll); }
             }
             else if (colour.Equals("Orange"))
             {
                 if (effectType.Equals("Blatant"))
-                {temp= GetOrangeBlatant(roll);}
+                { temp = GetOrangeBlatant(roll); }
                 else
-                {temp= GetOrangeLatent(roll);}
+                { temp = GetOrangeLatent(roll); }
             }
             else if (colour.Equals("Pink"))
             {
                 if (effectType.Equals("Blatant"))
-                {temp= GetPinkBlatant(roll);}
+                { temp = GetPinkBlatant(roll); }
                 else
-                {temp= GetPinkLatent(roll);}
+                { temp = GetPinkLatent(roll); }
             }
             else
             {
                 //(colour == purple, but a bit of a failsafe. 
                 if (effectType.Equals("Blatant"))
-                {temp= GetPurpleBlatant(roll);}
+                { temp = GetPurpleBlatant(roll); }
                 else
-                {temp= GetPurpleLatent(roll);}
+                { temp = GetPurpleLatent(roll); }
             }
             return temp.ToStringArr();
         }
@@ -103,7 +103,7 @@ namespace Serum_Roller
                 {
                     PEH.AddEffect("nextSerum", PE.Effect, PE.Parame);
                 }
-                else if(PE.Timing.Equals("untilOrangeOrPink") && (currentSerum.Equals("Orange") || currentSerum.Equals("Pink")))
+                else if (PE.Timing.Equals("untilOrangeOrPink") && (currentSerum.Equals("Orange") || currentSerum.Equals("Pink")))
                 {
                     PEH.AddEffect(PE.Timing, PE.Effect, PE.Parame);
                 }
@@ -130,7 +130,7 @@ namespace Serum_Roller
                     {
                         repBlatInt = 10 + int.Parse(PE.Parame[2].ToString());
                     }
-                     
+
                     if (PE.Parame.Equals('L'))
                     {
                         repBlat = "Blue";
@@ -155,7 +155,7 @@ namespace Serum_Roller
                     {
                         fuEff.Add(s);
                     }
-                    
+
                 }
                 else if (PE.Effect.Equals("replaceBothwith"))
                 {
@@ -221,23 +221,103 @@ namespace Serum_Roller
                 }
                 else if (PE.Effect.Equals("removeAspect"))
                 {
-                    // todo, make small UI for selecting unwanted aspect...
+                    // kludgey, but make sure the right one is selected-
+                    bool remSuccess = false;
+                    Aspect target;
+                    if (PE.Parame.Equals("highest"))
+                    {
+                        subject.SelectHighest();
+                        target = subject.GetHighest();
+                    }
+                    else if (PE.Parame.Equals("lowest"))
+                    {
+                        subject.SelectLowest();
+                        target = subject.GetLowest();
+                    }
+                    else
+                    {
+                        target = AR.Find(PE.Parame);
+                    }
+                    remSuccess = subject.RemoveAspect(target);
+                    fuEff.Add("rawText");
+                    fuEff.Add("The subject loses all trace of " + target.ToString() + ", becoming more " + subject.GetNatural().ToString() + " in it's place.");
+                    fuEff.Add("");
+                }
+                else if (PE.Effect.Equals("extremeAdvantage"))
+                {
+                    // roll 3 pairs, select 1 B 1 L the player wants
+                }
+                else if (PE.Effect.Equals("greenWillpower"))
+                {
+                    // player selects aspect & location for roll, if valid
+                }
+                else if (PE.Effect.Equals("hybridize"))
+                {
+                    aspectSelect AS = new aspectSelect("two highest aspects", subject.getUserAspects(), 2);
+                    Aspect hybrid = new Aspect(AS.selected[0] + "-" + AS.selected[1]);
+                    subject.RemoveAllAspects();
+                    subject.setNatural(hybrid);
+                    fuEff.Add("rawText");
+                    fuEff.Add("The subject becomes a hybrid " + subject.GetNatural().ToString() + ", replacing all other features with their new form.");
+                    fuEff.Add("");
                 }
             }
+
+
 
             string[] LatentResults = get(latentColour, "Latent", second).ToStringArr();
             string[] BlatantResults = get(blatantColour, "Blatant", first).ToStringArr();
             string[] longEff = new string[fuEff.Count];
-            for (int i=0; i<fuEff.Count; i++)
+            for (int i = 0; i < fuEff.Count; i++)
             {
                 longEff[i] = fuEff[i];
             }
             string result = ParseEffects(longEff, 0);
             result = result + ParseEffects(LatentResults, 0);
             result = result + ParseEffects(BlatantResults, 0);
-            // process RIGHT NOW triggers (caused by this serum, removing them)
-            
+            // process RIGHT NOW triggers (caused by this serum, removing them) (also thisandnext...)
+
             return "notdoneyet";
+        }
+        private string[] processRolls(List<string> colours, string effect, List<int> rolls, int roll0)
+        {
+            int totalrolls=0;
+            foreach(int i in rolls)
+            {
+                totalrolls += i;
+            }
+            // thus, total rolls = total number of rolls to process
+            // roll0 only affectscolours[0]
+            List<string> results = new List<string>();
+
+            for (int i = 0; i < rolls[0]; i++)
+            {
+                string[] temp = get(colours[0], effect, roll0);
+                // process Rolls results
+                foreach (string s in temp)
+                {
+                    results.Add(s);
+                    // place temp into result list
+                }
+            }
+            for (int col = 1; col < colours.Count; col++)
+            {
+                for (int roll =0; roll < rolls[col]; roll++)
+                {
+                    string[] temp = get(colours[col], effect, die.roll());
+                    foreach (string s in temp)
+                    {
+                        results.Add(s);
+                        // place temp into result list
+                    }
+                }
+            }
+            string[] fullResult = new string[results.Count];
+            for (int i = 0; i<results.Count; i++)
+            {
+                fullResult[i] = results[i];
+            }
+            return fullResult;
         }
         private string pCondition(string[] Eff, int i)
         {
@@ -443,7 +523,7 @@ namespace Serum_Roller
             Aspect Nat;
             if (Eff[i + 2].Equals("modify"))
             {
-                Nat = AR.Find(Eff[i + 1] + "-" + subject.Natural.ToString());
+                Nat = AR.Find(Eff[i + 1] + "-" + subject.GetNatural().ToString());
             }
             else
             {
@@ -462,11 +542,11 @@ namespace Serum_Roller
             }
             else if(SAspect.Equals("natural"))
             {
-                AAspect = subject.Natural;
+                AAspect = subject.GetNatural();
             }
             else if (SAspect.Equals("highest"))
             {
-                AAspect= subject.Highest;
+                AAspect= subject.GetHighest();
             }
             else
             {
@@ -494,7 +574,7 @@ namespace Serum_Roller
         }
         private string pGrowMax(string[] Eff, int i)
         {
-            Aspect AAspect = subject.Natural;
+            Aspect AAspect = subject.GetNatural();
             string SLocation = Eff[i + 1];
             if (SLocation.Equals("Subject's Choice"))
             {

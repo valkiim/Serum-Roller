@@ -47,6 +47,12 @@
   <ItemGroup>
     <Compile Include="Aspect.cs" />
     <Compile Include="AspectRoller.cs" />
+    <Compile Include="aspectSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="aspectSelect.Designer.cs">
+      <DependentUpon>aspectSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="AttributeFrame.cs" />
     <Compile Include="Dieroller.cs" />
     <Compile Include="EffectHandler.cs" />
@@ -93,6 +99,9 @@
     <Compile Include="WelcomeForm.Designer.cs">
       <DependentUpon>WelcomeForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="aspectSelect.resx">
+      <DependentUpon>aspectSelect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="effects\conditionForm.resx">
       <DependentUpon>conditionForm.cs</DependentUpon>
     </EmbeddedResource>

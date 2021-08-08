@@ -215,6 +215,10 @@ namespace Serum_Roller
                         target = AR.Find(PE.Parame);
                     }
                     remSuccess = subject.RemoveAspect(target);
+                    if (target.ASpecies.Equals(subject.GetNatural().ToString()))
+                    {
+                        subject.SetNatural(subject.GetHighest());
+                    }
                     fuEff.Add("rawText");
                     fuEff.Add("The subject loses all trace of " + target.ToString() + ", becoming more " + subject.GetNatural().ToString() + " in it's place.");
                     fuEff.Add("");

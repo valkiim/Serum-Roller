@@ -102,6 +102,7 @@ namespace Serum_Roller
             Aspects = new List<Aspect>();
             Attributes = new List<AttributeFrame>();
             StandardAttributes();
+
         }
 
         public UserLog(Aspect NatIn)
@@ -110,6 +111,8 @@ namespace Serum_Roller
             Attributes = new List<AttributeFrame>();
             SetNatural(NatIn);
             StandardAttributes();
+            highest = NatIn;
+            lowest = NatIn;
         }
 
         public void StandardAttributes()
@@ -231,7 +234,7 @@ namespace Serum_Roller
             string[] result = new string[Aspects.Count()];
             for (int i=0; i<Aspects.Count(); i++)
             {
-                result[i] = Aspects.ToString();
+                result[i] = Aspects[i].ToString();
             }
             return result;
         }

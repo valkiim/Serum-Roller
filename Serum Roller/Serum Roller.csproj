@@ -71,6 +71,7 @@
     <Compile Include="effects\sEffect.cs" />
     <Compile Include="effects\serumEffects.cs" />
     <Compile Include="effects\PinkEffects.cs" />
+    <Compile Include="labeledString.cs" />
     <Compile Include="Locationhandler.cs" />
     <Compile Include="LocationSelect.cs">
       <SubType>Form</SubType>

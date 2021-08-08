@@ -32,10 +32,6 @@ namespace Serum_Roller
             this.rollSerumButton = new System.Windows.Forms.Button();
             this.SerumFamilySelect = new System.Windows.Forms.ComboBox();
             this.SerumIDField = new System.Windows.Forms.TextBox();
-            this.TFLocationButton = new System.Windows.Forms.Button();
-            this.SizeLocationButton = new System.Windows.Forms.Button();
-            this.Locationlabel = new System.Windows.Forms.Label();
-            this.LocationResultLabel = new System.Windows.Forms.Label();
             this.SerumArchive = new System.Windows.Forms.ListBox();
             this.historylabel = new System.Windows.Forms.Label();
             this.randomAspectButton = new System.Windows.Forms.Button();
@@ -77,48 +73,10 @@ namespace Serum_Roller
             this.SerumIDField.Size = new System.Drawing.Size(121, 20);
             this.SerumIDField.TabIndex = 5;
             // 
-            // TFLocationButton
-            // 
-            this.TFLocationButton.Location = new System.Drawing.Point(349, 382);
-            this.TFLocationButton.Name = "TFLocationButton";
-            this.TFLocationButton.Size = new System.Drawing.Size(75, 23);
-            this.TFLocationButton.TabIndex = 6;
-            this.TFLocationButton.Text = "Roll TF Location";
-            this.TFLocationButton.UseVisualStyleBackColor = true;
-            this.TFLocationButton.Click += new System.EventHandler(this.TFLocationButton_Click);
-            // 
-            // SizeLocationButton
-            // 
-            this.SizeLocationButton.Location = new System.Drawing.Point(430, 382);
-            this.SizeLocationButton.Name = "SizeLocationButton";
-            this.SizeLocationButton.Size = new System.Drawing.Size(75, 23);
-            this.SizeLocationButton.TabIndex = 7;
-            this.SizeLocationButton.Text = "Roll Size";
-            this.SizeLocationButton.UseVisualStyleBackColor = true;
-            this.SizeLocationButton.Click += new System.EventHandler(this.SizeLocationButton_Click);
-            // 
-            // Locationlabel
-            // 
-            this.Locationlabel.AutoSize = true;
-            this.Locationlabel.Location = new System.Drawing.Point(346, 358);
-            this.Locationlabel.Name = "Locationlabel";
-            this.Locationlabel.Size = new System.Drawing.Size(94, 13);
-            this.Locationlabel.TabIndex = 11;
-            this.Locationlabel.Text = "Random Location:";
-            // 
-            // LocationResultLabel
-            // 
-            this.LocationResultLabel.AutoSize = true;
-            this.LocationResultLabel.Location = new System.Drawing.Point(446, 358);
-            this.LocationResultLabel.Name = "LocationResultLabel";
-            this.LocationResultLabel.Size = new System.Drawing.Size(27, 13);
-            this.LocationResultLabel.TabIndex = 13;
-            this.LocationResultLabel.Text = "N/A";
-            // 
             // SerumArchive
             // 
             this.SerumArchive.FormattingEnabled = true;
-            this.SerumArchive.Location = new System.Drawing.Point(718, 51);
+            this.SerumArchive.Location = new System.Drawing.Point(539, 36);
             this.SerumArchive.Name = "SerumArchive";
             this.SerumArchive.Size = new System.Drawing.Size(100, 290);
             this.SerumArchive.TabIndex = 14;
@@ -128,7 +86,7 @@ namespace Serum_Roller
             // 
             this.historylabel.AutoSize = true;
             this.historylabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.historylabel.Location = new System.Drawing.Point(718, 27);
+            this.historylabel.Location = new System.Drawing.Point(535, 13);
             this.historylabel.Name = "historylabel";
             this.historylabel.Size = new System.Drawing.Size(100, 20);
             this.historylabel.TabIndex = 15;
@@ -136,7 +94,7 @@ namespace Serum_Roller
             // 
             // randomAspectButton
             // 
-            this.randomAspectButton.Location = new System.Drawing.Point(718, 355);
+            this.randomAspectButton.Location = new System.Drawing.Point(539, 348);
             this.randomAspectButton.Name = "randomAspectButton";
             this.randomAspectButton.Size = new System.Drawing.Size(96, 23);
             this.randomAspectButton.TabIndex = 16;
@@ -166,9 +124,9 @@ namespace Serum_Roller
             // 
             this.effectLabel.AutoSize = true;
             this.effectLabel.Location = new System.Drawing.Point(13, 13);
-            this.effectLabel.MaximumSize = new System.Drawing.Size(700, 0);
+            this.effectLabel.MaximumSize = new System.Drawing.Size(500, 0);
             this.effectLabel.Name = "effectLabel";
-            this.effectLabel.Size = new System.Drawing.Size(686, 52);
+            this.effectLabel.Size = new System.Drawing.Size(497, 65);
             this.effectLabel.TabIndex = 19;
             this.effectLabel.Text = resources.GetString("effectLabel.Text");
             // 
@@ -176,17 +134,13 @@ namespace Serum_Roller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(831, 415);
+            this.ClientSize = new System.Drawing.Size(651, 419);
             this.Controls.Add(this.effectLabel);
             this.Controls.Add(this.helpbutton);
             this.Controls.Add(this.RandomAspectLabel);
             this.Controls.Add(this.randomAspectButton);
             this.Controls.Add(this.historylabel);
             this.Controls.Add(this.SerumArchive);
-            this.Controls.Add(this.LocationResultLabel);
-            this.Controls.Add(this.Locationlabel);
-            this.Controls.Add(this.SizeLocationButton);
-            this.Controls.Add(this.TFLocationButton);
             this.Controls.Add(this.SerumIDField);
             this.Controls.Add(this.SerumFamilySelect);
             this.Controls.Add(this.rollSerumButton);
@@ -205,10 +159,6 @@ namespace Serum_Roller
         private System.Windows.Forms.Button rollSerumButton;
         private System.Windows.Forms.ComboBox SerumFamilySelect;
         private System.Windows.Forms.TextBox SerumIDField;
-        private System.Windows.Forms.Button TFLocationButton;
-        private System.Windows.Forms.Button SizeLocationButton;
-        private System.Windows.Forms.Label Locationlabel;
-        private System.Windows.Forms.Label LocationResultLabel;
         private System.Windows.Forms.ListBox SerumArchive;
         private System.Windows.Forms.Label historylabel;
         private System.Windows.Forms.Button randomAspectButton;

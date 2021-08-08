@@ -24,7 +24,7 @@ namespace Serum_Roller.effects
             BlatantEffects.Add(new string[] { "applyAspect", "random", "Y" });
             BlatantEffects.Add(new string[] { "rightNow", "removeAspect", "lowest", "addAspect", "highest", "Y" });
             BlatantEffects.Add(new string[] { "growNew", "natural", "random" });
-            BlatantEffects.Add(new string[] { "transform", "Paven", "wings", "addAspect", "Paven", "N" });
+            BlatantEffects.Add(new string[] { "transform", "wings", "Paven", "addAspect", "Paven", "N" });
             BlatantEffects.Add(new string[] { "transform", "Giraffe", "head", "addAspect", "Giraffe", "N" });
             BlatantEffects.Add(new string[] { "applyAspect", "Dragon", "N", "transform", "Dragon", "wings" });
             //Latents

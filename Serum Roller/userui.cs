@@ -64,7 +64,6 @@ namespace Serum_Roller
                 int latent = Die.roll();
                 string output = EH.RollResults(new SerumID(input, blatant, latent))+" roll processed!";
                 SerumIDField.Text = SerumID.GenerateID(input, blatant, latent);
-                SerumArchive.Items.Add(SerumIDField.Text);
                 ApplySerum(output);
             }
         }
@@ -72,22 +71,16 @@ namespace Serum_Roller
         void ApplySerum(string visualEffects)
         {
             effectLabel.Text = visualEffects;
-        }
-        private void TFLocationButton_Click(object sender, EventArgs e)
-        {
-            LocationResultLabel.Text = Locationhandler.TFLocation(Die.roll());
-        }
-        private void SizeLocationButton_Click(object sender, EventArgs e)
-        {
-            LocationResultLabel.Text = Locationhandler.SizeLocation(Die.roll());
+            labeledString temp = new labeledString(SerumIDField.Text, visualEffects);
+            SerumArchive.Items.Add(temp);
         }
 
         private void SerumArchive_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             // When mouse double clicks, show details of selected serum. Nice and simple. 
             int sel = SerumArchive.SelectedIndex;
-            sEffect[] output = null;// todo fix log
-            SerumDetails details = new SerumDetails(SerumArchive.Items[sel].ToString(), output);
+            labeledString output = (labeledString)SerumArchive.Items[sel];// todo fix log
+            SerumDetails details = new SerumDetails(output);
             DialogResult deletserum = details.ShowDialog();
             if (deletserum == DialogResult.OK)
             {

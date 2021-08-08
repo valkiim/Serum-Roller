@@ -14,6 +14,7 @@ namespace Serum_Roller
         private Aspect natural;
         private Aspect highest;
         private Aspect lowest;
+        private bool LowestHighestUpToDate;
         List<Aspect> Aspects;
         List<AttributeFrame> Attributes;
 
@@ -47,11 +48,14 @@ namespace Serum_Roller
         {
 
             bool hasit = false;
-            foreach (Aspect Pect in Aspects)
+            if (LowestHighestUpToDate)
             {
-                if (highest.Equals(Pect))
+                foreach (Aspect Pect in Aspects)
                 {
-                    hasit = true;
+                    if (highest.Equals(Pect))
+                    {
+                        hasit = true;
+                    }
                 }
             }
             if (hasit)
@@ -61,6 +65,8 @@ namespace Serum_Roller
             else
             {
                 SelectHighest();
+                SelectLowest();
+                LowestHighestUpToDate = true;
                 return highest;
             }
             
@@ -74,11 +80,14 @@ namespace Serum_Roller
         public Aspect GetLowest()
         {
             bool hasit = false;
-            foreach (Aspect Pect in Aspects)
+            if (LowestHighestUpToDate)
             {
-                if (lowest.Equals(Pect))
+                foreach (Aspect Pect in Aspects)
                 {
-                    hasit = true;
+                    if (lowest.Equals(Pect))
+                    {
+                        hasit = true;
+                    }
                 }
             }
             if (hasit)
@@ -87,7 +96,9 @@ namespace Serum_Roller
             }
             else
             {
+                SelectHighest();
                 SelectLowest();
+                LowestHighestUpToDate = true;
                 return lowest;
             }
         }
@@ -102,6 +113,7 @@ namespace Serum_Roller
             Aspects = new List<Aspect>();
             Attributes = new List<AttributeFrame>();
             StandardAttributes();
+            LowestHighestUpToDate = true;
 
         }
 
@@ -113,6 +125,7 @@ namespace Serum_Roller
             StandardAttributes();
             highest = NatIn;
             lowest = NatIn;
+            LowestHighestUpToDate = true;
         }
 
         public void StandardAttributes()
@@ -136,14 +149,29 @@ namespace Serum_Roller
             AspectRoller AR = AspectRoller.Instance;
             aspectSelect AS = new aspectSelect("highest", getUserAspects());
             AS.ShowDialog();
-            SetHighest(AR.Find( AS.selected[0]));
+            if (AS.selected.Length == 0)
+            {
+                SelectHighest();
+            }
+            else
+            {
+                SetHighest(AR.Find(AS.selected[0]));
+            }
+            
         }
         public void SelectLowest()
         {
             AspectRoller AR = AspectRoller.Instance;
             aspectSelect AS = new aspectSelect("lowest", getUserAspects());
             AS.ShowDialog();
-            SetLowest(AR.Find(AS.selected[0]));
+            if (AS.selected.Length == 0)
+            {
+                SelectLowest();
+            }
+            else
+            {
+                SetLowest(AR.Find(AS.selected[0]));
+            }
         }
         public bool RemoveAspect(Aspect Input)
         {
@@ -153,6 +181,7 @@ namespace Serum_Roller
                 // checks if already present
                 if (As.Equals(Input))
                 {
+                    LowestHighestUpToDate = false;
                     Aspects.Remove(As);
                     return true;
                 }
@@ -173,6 +202,7 @@ namespace Serum_Roller
             }
             // else
             Aspects.Add(Input);
+            LowestHighestUpToDate = false;
             return true;
         }
         public bool setNatural(Aspect input)
@@ -240,6 +270,7 @@ namespace Serum_Roller
         }
         public bool RemoveAllAspects()
         {
+            LowestHighestUpToDate = false;
             // for when you do not want aspects anymore!
             foreach (Aspect pect in Aspects)
             {

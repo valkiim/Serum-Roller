@@ -220,7 +220,7 @@ namespace Serum_Roller
                         subject.SetNatural(subject.GetHighest());
                     }
                     fuEff.Add("rawText");
-                    fuEff.Add("The subject loses all trace of " + target.ToString() + ", becoming more " + subject.GetNatural().ToString() + " in it's place.");
+                    fuEff.Add("The subject loses all trace of " + target.ToString() + ", becoming more " + subject.GetNatural().ToString() + " in its place.");
                     fuEff.Add("");
                 }
                 else if (PE.Effect.Equals("extremeAdvantage"))
@@ -368,7 +368,7 @@ namespace Serum_Roller
                     }
                     remSuccess = subject.RemoveAspect(target);
                     fuEff.Add("rawText");
-                    fuEff.Add("The subject loses all trace of " + target.ToString() + ", becoming more " + subject.GetNatural().ToString() + " in it's place.");
+                    fuEff.Add("The subject loses all trace of " + target.ToString() + ", becoming more " + subject.GetNatural().ToString() + " in its place.");
                     fuEff.Add("");
                 }
                 else if (PE.Effect.Equals("extremeAdvantage"))
@@ -389,6 +389,9 @@ namespace Serum_Roller
                     fuEff.Add("The subject becomes a hybrid " + subject.GetNatural().ToString() + ", replacing all other features with their new form.");
                     fuEff.Add("");
                 }
+                longEff = fuEff;   // process the future effects
+                fuEff = new List<string>();     // clear the log
+                result += ParseEffects(longEff, 0); // doing this a second time to be safe
             }
             return result;
         }
@@ -508,10 +511,18 @@ namespace Serum_Roller
             bool moddResolved = subject.ModifyAttAdd(Eff[i + 1], (-1.0 * double.Parse(Eff[i + 2])));
             if (Eff[i + 1].Equals("growthEff"))
             {
+                if (subject.getAttribute("growthEff") <= 0)
+                {
+                    return "The subject feels like they are now Unable to grow!\n" + ParseEffects(Eff, i + 3);
+                }
                 return "The Subject has a feeling that it is harder to grow larger.\n" + ParseEffects(Eff, i + 3);
             }
             else if (Eff[i + 1].Equals("shrinkEff"))
             {
+                if (subject.getAttribute("shrinkEff") <= 0)
+                {
+                    return "The subject feels like they are now Unable to shrink!\n" + ParseEffects(Eff, i + 3);
+                }
                 return "The Subject has a feeling that they won't shrink smaller.\n" + ParseEffects(Eff, i + 3);
             }
             else

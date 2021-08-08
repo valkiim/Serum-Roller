@@ -38,21 +38,23 @@ namespace Serum_Roller
         private void RollSerumButton_Click(object sender, EventArgs e)
         {
             string input = SerumFamilySelect.Text;
-            string results;
+            SerumID ParsedID;
             if (input.Equals("")||input.Equals("Choose Colour"))
             {
                 return;
             }
             if (input.Equals("By ID"))
             {
-                results = ParseID(SerumIDField.Text);
-                if (results == null)
+                ParsedID = new SerumID(SerumIDField.Text);
+                if (ParsedID == null)
                 {
                     return;
                 }
                 else
                 {
-                    ApplySerum(results[0], results[1]);
+                    string output = EH.RollResults(ParsedID);
+
+                    ApplySerum(output);
                 }
             }
             else
@@ -60,127 +62,16 @@ namespace Serum_Roller
                 
                 int blatant = Die.roll();
                 int latent = Die.roll();
-                results = EH.RollResults(input, blatant, latent);
-                SerumIDField.Text = createID(input, blatant, latent);
+                string output = EH.RollResults(new SerumID(input, blatant, latent))+" roll processed!";
+                SerumIDField.Text = SerumID.GenerateID(input, blatant, latent);
                 SerumArchive.Items.Add(SerumIDField.Text);
-                AdditionColourSelect.Text = input;
-                //ApplySerum(results[0], results[1]);
+                ApplySerum(output);
             }
         }
-        string createID(string colour, int blatant, int latent)
-        {
-            string newID = "";
-            if (colour.Equals("Blue"))
-            {
-                newID = "L";
-            } else if(colour.Equals("Green")){
-                newID = "G";
-            } else if (colour.Equals("Orange"))
-            {
-                newID = "R";
-            }else if (colour.Equals("Pink"))
-            {
-                newID = "P";
-            }else if(colour.Equals("Purple"))
-            {
-                newID = "V";
-            }
-            if (blatant >= 10)
-            {
-                newID = newID + blatant.ToString();
-            }
-            else
-            {
-                newID = newID + "0" + blatant.ToString();
-            }
-
-            if (latent >= 10)
-            {
-                newID = newID + latent.ToString();
-            }
-            else
-            {
-                newID=newID+ "0" + latent.ToString();
-            }
-            return newID;
-        }
-        string ParseID(string ID)
-        {
-            string colour;
-            int blatant;
-            int latent;
-
-            // colour parsing
-            if (ID[0].Equals('L'))
-            {
-                colour = "Blue";
-            } else if (ID[0].Equals('G'))
-            {
-                colour = "Green";
-            } else if (ID[0].Equals('R'))
-            {
-                colour = "Orange";
-            }else if (ID[0].Equals('P'))
-            {
-                colour = "Pink";
-            }else if (ID[0].Equals('V'))
-            {
-                colour = "Purple";
-            }
-            else
-            {
-                colour = "Invalid";
-                return null;
-            }
-            AdditionColourSelect.Text = colour;
-
-            // blatant parsing
-            if (ID[1].Equals('0'))
-            {
-                blatant = int.Parse(ID[2].ToString());
-            }
-            else
-            {
-                blatant = 10 + int.Parse(ID[2].ToString());
-            }
-
-            // latent parsing
-            if (ID[3].Equals('0'))
-            {
-                latent = int.Parse(ID[4].ToString());
-            }
-            else
-            {
-                latent = 10 + int.Parse(ID[4].ToString());
-            }
-
-            // Verify Validity
-
-            if (colour.Equals("Invalid"))
-            {
-                MessageBox.Show("Invalid Serum code!\nInvalid colour code!");
-                return null;
-            }
-            else if (blatant > 12)
-            {
-                MessageBox.Show("Invalid Serum code!\nInvalid Blatant Effect!");
-                return null;
-            }
-            else if (latent > 12)
-            {
-                MessageBox.Show("Invalid Serum code!\nInvalid Latent Effect!");
-                return null;
-            }
-            else
-            {
-                return EH.RollResults(colour, blatant, latent);
-            }
-
-        }
+        
         void ApplySerum(string visualEffects)
         {
-            // TODO: rewrite this to handle the new subject output
-
+            effectLabel.Text = visualEffects;
         }
         private void TFLocationButton_Click(object sender, EventArgs e)
         {
@@ -190,30 +81,12 @@ namespace Serum_Roller
         {
             LocationResultLabel.Text = Locationhandler.SizeLocation(Die.roll());
         }
-        private void AddBlatantButton_Click(object sender, EventArgs e)
-        {
-            string colour = AdditionColourSelect.Text;
-            if (colour.Equals("")){
-                return;
-            }
-            sEffect Blatant = EH.RollResults(colour, Die.roll(), 12)[0];
-            BlatantEffectList.Items.Add(Blatant.ToString());
-        }
-        private void AddLatentButton_Click(object sender, EventArgs e)
-        {
-            string colour = AdditionColourSelect.Text;
-            if (colour.Equals(""))
-            {
-                return;
-            }
-            sEffect latent = EH.RollResults(colour, 12, Die.roll())[1];
-            LatentEffectList.Items.Add(latent.ToString());
-        }
+
         private void SerumArchive_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             // When mouse double clicks, show details of selected serum. Nice and simple. 
             int sel = SerumArchive.SelectedIndex;
-            sEffect[] output = ParseID(SerumArchive.Items[sel].ToString());
+            sEffect[] output = null;// todo fix log
             SerumDetails details = new SerumDetails(SerumArchive.Items[sel].ToString(), output);
             DialogResult deletserum = details.ShowDialog();
             if (deletserum == DialogResult.OK)

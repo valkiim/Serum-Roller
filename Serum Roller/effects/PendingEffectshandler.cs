@@ -35,6 +35,10 @@ namespace Serum_Roller.effects
             List<PendingEffect> output = new List<PendingEffect>();
             // returns a list of triggered serum effects, based on serum injested
             // feeding this function "none" will check for and remove "right now" effects. 
+            if (PE.Count == 0)
+            {
+                return new List<PendingEffect>();
+            }
             if (colour.Equals("none"))
             {
                 output = ExtractEffects("rightNow");

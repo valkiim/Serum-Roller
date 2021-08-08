@@ -107,6 +107,7 @@ namespace Serum_Roller
         public UserLog(Aspect NatIn)
         {
             Aspects = new List<Aspect> { NatIn };
+            Attributes = new List<AttributeFrame>();
             SetNatural(NatIn);
             StandardAttributes();
         }
@@ -131,13 +132,15 @@ namespace Serum_Roller
         {
             AspectRoller AR = AspectRoller.Instance;
             aspectSelect AS = new aspectSelect("highest", getUserAspects());
+            AS.ShowDialog();
             SetHighest(AR.Find( AS.selected[0]));
         }
         public void SelectLowest()
         {
             AspectRoller AR = AspectRoller.Instance;
             aspectSelect AS = new aspectSelect("lowest", getUserAspects());
-            SetHighest(AR.Find(AS.selected[0]));
+            AS.ShowDialog();
+            SetLowest(AR.Find(AS.selected[0]));
         }
         public bool RemoveAspect(Aspect Input)
         {

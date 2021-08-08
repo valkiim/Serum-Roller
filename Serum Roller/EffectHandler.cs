@@ -41,7 +41,6 @@ namespace Serum_Roller
             currentSerum = "none";
             blRoll = 0;
             laRoll = 0;
-
         }
         public string[] get(string colour, string effectType, int roll)
         {
@@ -85,16 +84,25 @@ namespace Serum_Roller
             return temp.ToStringArr();
         }
         //all of these process the die roll
-        public string RollResults(string colour, int first, int second)
+        public string RollResults(SerumID input)
+        {
+            return RollResults(input.colour, input.blatant, input.latent);
+        }
+        private string RollResults(string colour, int first, int second)
         {
             blRoll = first;
             laRoll = second;
             // this function passes the ball off to the recursive effect 
             // process serum-colour triggers(caused by prior serums, removing them)
-            List<string> blatantColours = new List<string> { colour };// these keep track of what serum is to be rolled. 
-            List<string> latentColours = new List<string> { colour };
-            List<int> blatantDoses = new List<int> { 1 };
-            List<int> latentDoses = new List<int> { 1 };
+            string serumBlatantColour = colour;
+            int serumBlatantDose = 1;
+            string serumLatentColour = colour;
+            int serumLatentDose = 1;
+
+            List<string> blatantColours = new List<string>();// these keep track of what serum is to be rolled. 
+            List<string> latentColours = new List<string>();
+            List<int> blatantDoses = new List<int>();
+            List<int> latentDoses = new List<int>();
             List<PendingEffect> ActiveEffects = PEH.TriggeredEffects(colour);
             foreach (PendingEffect PE in ActiveEffects)
             {
@@ -120,47 +128,15 @@ namespace Serum_Roller
                 }
                 else if (PE.Effect.Equals("repeatBlatant"))
                 {
-                    string repBlat = "";
-                    int repBlatInt;
-                    if (PE.Parame[1].Equals('0'))
-                    {
-                        repBlatInt = int.Parse(PE.Parame[2].ToString());
-                    }
-                    else
-                    {
-                        repBlatInt = 10 + int.Parse(PE.Parame[2].ToString());
-                    }
-
-                    if (PE.Parame.Equals('L'))
-                    {
-                        repBlat = "Blue";
-                    }
-                    else if (PE.Parame.Equals('G'))
-                    {
-                        repBlat = "Green";
-                    }
-                    else if (PE.Parame.Equals('R'))
-                    {
-                        repBlat = "Orange";
-                    }
-                    else if (PE.Parame.Equals('P'))
-                    {
-                        repBlat = "Pink";
-                    }
-                    else if (PE.Parame.Equals('V'))
-                    {
-                        repBlat = "Purple";
-                    }
-                    foreach (string s in get(repBlat, "Blatant", repBlatInt))
+                    foreach (string s in get(colour, "Blatant", first))
                     {
                         fuEff.Add(s);
                     }
-
                 }
                 else if (PE.Effect.Equals("replaceBothwith"))
                 {
-                    latentColours[0] = PE.Parame;
-                    blatantColours[0] = PE.Parame;
+                    serumBlatantColour = PE.Parame;
+                    serumLatentColour = PE.Parame;
                 }
                 else if (PE.Effect.Equals("greenAddiction"))
                 {
@@ -177,12 +153,12 @@ namespace Serum_Roller
                 }
                 else if (PE.Effect.Equals("doubleDose"))
                 {
-                    blatantDoses[0] = 2;
-                    latentDoses[0] = 2;
+                    serumBlatantDose = 2;
+                    serumLatentDose = 2;
                 }
                 else if (PE.Effect.Equals("noLatent"))
                 {
-                    latentDoses[0] = 0;
+                    serumLatentDose = 0;
                 }
                 else if (PE.Effect.Equals("onlyPinkOr"))
                 {
@@ -193,21 +169,21 @@ namespace Serum_Roller
                     else
                     {
                         PEH.AddEffect(PE.Timing, PE.Effect, PE.Parame);
-                        blatantDoses[0] = 0;
-                        latentDoses[0] = 0;
+                        serumBlatantDose = 0;
+                        serumLatentDose = 0;
                     }
                 }
                 else if (PE.Effect.Equals("invertSerum"))
                 {
                     if (currentSerum.Equals("Orange"))
                     {
-                        blatantColours[0] = "Blue";
-                        latentColours[0] = "Blue";
+                        serumBlatantColour = "Blue";
+                        serumLatentColour = "Blue";
                     }
                     else
                     {
-                        blatantColours[0] = "Orange";
-                        latentColours[0] = "Orange";
+                        serumBlatantColour = "Orange";
+                        serumLatentColour = "Orange";
                     }
                 }
                 else if (PE.Effect.Equals("chaosSerum"))
@@ -263,44 +239,183 @@ namespace Serum_Roller
                 }
             }
 
-
-
-            string[] LatentResults = get(latentColour, "Latent", second).ToStringArr();
-            string[] BlatantResults = get(blatantColour, "Blatant", first).ToStringArr();
-            string[] longEff = new string[fuEff.Count];
-            for (int i = 0; i < fuEff.Count; i++)
-            {
-                longEff[i] = fuEff[i];
-            }
+            List<string> serumBlatant = processRolls(serumBlatantColour, "Blatant", serumBlatantDose, first);
+            List<string> serumLatent = processRolls(serumLatentColour, "Latent", serumLatentDose, second);
+            List<string> LatentResults = processRolls(latentColours, "Latent", latentDoses);
+            List<string> BlatantResults = processRolls(blatantColours, "Blatant", blatantDoses);
+            List<string> longEff = fuEff;   // process the future effects
+            fuEff = new List<string>();     // clear the log
             string result = ParseEffects(longEff, 0);
             result = result + ParseEffects(LatentResults, 0);
+            result = result + ParseEffects(serumLatent, 0);
             result = result + ParseEffects(BlatantResults, 0);
+            result = result + ParseEffects(serumBlatant, 0);
             // process RIGHT NOW triggers (caused by this serum, removing them) (also thisandnext...)
-
-            return "notdoneyet";
-        }
-        private string[] processRolls(List<string> colours, string effect, List<int> rolls, int roll0)
-        {
-            int totalrolls=0;
-            foreach(int i in rolls)
+            ActiveEffects = PEH.TriggeredEffects("none");
+            foreach (PendingEffect PE in ActiveEffects)
             {
-                totalrolls += i;
+                // these catch "do it more than once" actions
+                if (PE.Timing.Equals("nextTwo"))
+                {
+                    PEH.AddEffect("nextSerum", PE.Effect, PE.Parame);
+                }
+                else if (PE.Timing.Equals("untilOrangeOrPink") && (currentSerum.Equals("Orange") || currentSerum.Equals("Pink")))
+                {
+                    PEH.AddEffect(PE.Timing, PE.Effect, PE.Parame);
+                }
+
+                if (PE.Effect.Equals("addBlatant"))
+                {
+                    blatantColours.Add(PE.Parame);
+                    blatantDoses.Add(1);
+                }
+                else if (PE.Effect.Equals("addLatent"))
+                {
+                    latentColours.Add(PE.Parame);
+                    latentDoses.Add(1);
+                }
+                else if (PE.Effect.Equals("repeatBlatant"))
+                {
+                    foreach (string s in get(colour, "Blatant", first))
+                    {
+                        fuEff.Add(s);
+                    }
+                }
+                else if (PE.Effect.Equals("replaceBothwith"))
+                {
+                    serumBlatantColour = PE.Parame;
+                    serumLatentColour = PE.Parame;
+                }
+                else if (PE.Effect.Equals("greenAddiction"))
+                {
+                    if (currentSerum.Equals("Green"))
+                    {
+                        blatantColours.Add("Orange");
+                        blatantDoses.Add(1);
+                    }
+                    else
+                    {
+                        blatantColours.Add("Blue");
+                        blatantDoses.Add(1);
+                    }
+                }
+                else if (PE.Effect.Equals("doubleDose"))
+                {
+                    serumBlatantDose = 2;
+                    serumLatentDose = 2;
+                }
+                else if (PE.Effect.Equals("noLatent"))
+                {
+                    serumLatentDose = 0;
+                }
+                else if (PE.Effect.Equals("onlyPinkOr"))
+                {
+                    if (currentSerum.Equals("Pink") || currentSerum.Equals(PE.Parame))
+                    {
+                        // the serum is allowed to exist and the curse is broken!
+                    }
+                    else
+                    {
+                        PEH.AddEffect(PE.Timing, PE.Effect, PE.Parame);
+                        serumBlatantDose = 0;
+                        serumLatentDose = 0;
+                    }
+                }
+                else if (PE.Effect.Equals("invertSerum"))
+                {
+                    if (currentSerum.Equals("Orange"))
+                    {
+                        serumBlatantColour = "Blue";
+                        serumLatentColour = "Blue";
+                    }
+                    else
+                    {
+                        serumBlatantColour = "Orange";
+                        serumLatentColour = "Orange";
+                    }
+                }
+                else if (PE.Effect.Equals("chaosSerum"))
+                {
+                    blatantColours.Add("Blue");
+                    blatantColours.Add("Green");
+                    blatantColours.Add("Orange");
+                    blatantDoses.Add(1);
+                    blatantDoses.Add(1);
+                    blatantDoses.Add(1);
+                }
+                else if (PE.Effect.Equals("removeAspect"))
+                {
+                    // kludgey, but make sure the right one is selected-
+                    bool remSuccess = false;
+                    Aspect target;
+                    if (PE.Parame.Equals("highest"))
+                    {
+                        subject.SelectHighest();
+                        target = subject.GetHighest();
+                    }
+                    else if (PE.Parame.Equals("lowest"))
+                    {
+                        subject.SelectLowest();
+                        target = subject.GetLowest();
+                    }
+                    else
+                    {
+                        target = AR.Find(PE.Parame);
+                    }
+                    remSuccess = subject.RemoveAspect(target);
+                    fuEff.Add("rawText");
+                    fuEff.Add("The subject loses all trace of " + target.ToString() + ", becoming more " + subject.GetNatural().ToString() + " in it's place.");
+                    fuEff.Add("");
+                }
+                else if (PE.Effect.Equals("extremeAdvantage"))
+                {
+                    // roll 3 pairs, select 1 B 1 L the player wants
+                }
+                else if (PE.Effect.Equals("greenWillpower"))
+                {
+                    // player selects aspect & location for roll, if valid
+                }
+                else if (PE.Effect.Equals("hybridize"))
+                {
+                    aspectSelect AS = new aspectSelect("two highest aspects", subject.getUserAspects(), 2);
+                    Aspect hybrid = new Aspect(AS.selected[0] + "-" + AS.selected[1]);
+                    subject.RemoveAllAspects();
+                    subject.setNatural(hybrid);
+                    fuEff.Add("rawText");
+                    fuEff.Add("The subject becomes a hybrid " + subject.GetNatural().ToString() + ", replacing all other features with their new form.");
+                    fuEff.Add("");
+                }
             }
-            // thus, total rolls = total number of rolls to process
-            // roll0 only affectscolours[0]
-            List<string> results = new List<string>();
+            return result;
+        }
 
-            for (int i = 0; i < rolls[0]; i++)
+        private List<string> processRolls(string colour, string effect, int doses, int roll)
+        {
+            // for the serum itself
+            List<string> results = new List<string>();
+            for (int i = 0; i<doses; i++)
             {
-                string[] temp = get(colours[0], effect, roll0);
-                // process Rolls results
+                string[] temp = get(colour, effect, roll);
                 foreach (string s in temp)
                 {
                     results.Add(s);
                     // place temp into result list
                 }
             }
-            for (int col = 1; col < colours.Count; col++)
+            return results;
+        }
+        private List<string> processRolls(List<string> colours, string effect, List<int> rolls)
+        {
+            // for weird rider effects
+            int totalrolls=0;
+            foreach(int i in rolls)
+            {
+                totalrolls += i;
+            }
+            // thus, total rolls = total number of rolls to process
+            List<string> results = new List<string>();
+
+            for (int col = 0; col < colours.Count; col++)
             {
                 for (int roll =0; roll < rolls[col]; roll++)
                 {
@@ -312,12 +427,7 @@ namespace Serum_Roller
                     }
                 }
             }
-            string[] fullResult = new string[results.Count];
-            for (int i = 0; i<results.Count; i++)
-            {
-                fullResult[i] = results[i];
-            }
-            return fullResult;
+            return results;
         }
         private string pCondition(string[] Eff, int i)
         {
@@ -326,7 +436,7 @@ namespace Serum_Roller
             {
                 return ParseEffects(Eff, i + 2);
             }
-            else if (Eff.Length >= (i + 5) && Eff[i + 5].Equals("else"))
+            else if (Eff.Length >= (i + 6) && Eff[i + 5].Equals("else"))
             {   // I+1 = condition message, I+2/3/4 =effect, I+5 = else, or next condition queue
                 return ParseEffects(Eff, i + 6);
             }
@@ -340,20 +450,28 @@ namespace Serum_Roller
             string location, percent;
             double numPercent;
             location = Eff[i + 1];
+            if (location.Equals("random"))
+            {
+                location = Locationhandler.SizeLocation(die.r1d6());
+            }
             numPercent = double.Parse(Eff[i + 2]);
             numPercent = subject.getAttribute("growthEff") * numPercent;
             percent = ToPercent(numPercent);
-            return "The Subject's " + location + " grows by " + percent + "%.\n" + ParseEffects(Eff, i + 3);
+            return "The Subject's " + location + " grows by " + percent + ".\n" + ParseEffects(Eff, i + 3);
         }
         private string pShrink(string[] Eff, int i)
         {   //shrink effect, based off shrinkEff
             string location, percent;
             double numPercent;
             location = Eff[i + 1];
+            if (location.Equals("random"))
+            {
+                location = Locationhandler.SizeLocation(die.r1d6());
+            }
             numPercent = double.Parse(Eff[i + 2]);
             numPercent = subject.getAttribute("shrinkEff") * numPercent;
             percent = ToPercent(numPercent);
-            return "The Subject's " + location + " shrinks by " + percent + "%.\n" + ParseEffects(Eff, i + 3);
+            return "The Subject's " + location + " shrinks by " + percent + ".\n" + ParseEffects(Eff, i + 3);
         }
         private string pIncrease(string[] Eff, int i)
         {   //increases a user attribute
@@ -490,11 +608,15 @@ namespace Serum_Roller
         }
         private string pTransform(string[] Eff, int i)
         {   // Eff[i]/Eff[i+1]/Eff[i+2] = transform/location/aspect
-            string aspect = Eff[i + 1];
-            string location = Eff[i + 2];
+            string location = Eff[i + 1];
+            string aspect = Eff[i + 2];
             if (aspect.Equals("random"))
             {
                 aspect = AR.RollAspect().ToString();
+            }
+            else if (aspect.Equals("highest"))
+            {
+                aspect = subject.GetHighest().ToString();
             }
             if (location.Equals("random"))
             {
@@ -511,7 +633,7 @@ namespace Serum_Roller
             }
             if (tfTrigger)
             {
-                return ParseEffects(new string[] { "transform", "random", Eff[i + 2] }, 0) + ParseEffects(Eff, i + 3);
+                return ParseEffects(new string[] { "transform", "random", Eff[i + 1] }, 0) + ParseEffects(Eff, i + 3);
             }
             else
             {
@@ -825,10 +947,20 @@ namespace Serum_Roller
                 return "Subject's Choice";
             }
         }
+
+        public string ParseEffects(List<string> Eff, int index)
+        {
+            string[] newEff = new string[Eff.Count];
+            for (int i=0; i<Eff.Count; i++)
+            {
+                newEff[i] = Eff[i];
+            }
+            return ParseEffects(newEff, index);
+        }
         public string ParseEffects(string[] Eff, int i)
         {   //i = index, now delegated out!
             if (Eff.Length <= i) { return ""; } //preventing out of Range errors
-            
+
             if (Eff[i].Equals("rawText"))
             {   // command is raw text
                 return Eff[i + 1] + "\n" + ParseEffects(Eff, i + 3);
@@ -873,7 +1005,7 @@ namespace Serum_Roller
             {
                 return pApplyAspect(Eff, i);
             }
-i           else if (Eff[i].Equals("applyNatural"))
+           else if (Eff[i].Equals("applyNatural"))
             {
                 return pApplyNatural(Eff, i);
             }

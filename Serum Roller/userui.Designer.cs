@@ -34,10 +34,7 @@ namespace Serum_Roller
             this.SerumIDField = new System.Windows.Forms.TextBox();
             this.TFLocationButton = new System.Windows.Forms.Button();
             this.SizeLocationButton = new System.Windows.Forms.Button();
-            this.AddBlatantButton = new System.Windows.Forms.Button();
-            this.AddLatentButton = new System.Windows.Forms.Button();
             this.Locationlabel = new System.Windows.Forms.Label();
-            this.AdditionColourSelect = new System.Windows.Forms.ComboBox();
             this.LocationResultLabel = new System.Windows.Forms.Label();
             this.SerumArchive = new System.Windows.Forms.ListBox();
             this.historylabel = new System.Windows.Forms.Label();
@@ -100,27 +97,6 @@ namespace Serum_Roller
             this.SizeLocationButton.UseVisualStyleBackColor = true;
             this.SizeLocationButton.Click += new System.EventHandler(this.SizeLocationButton_Click);
             // 
-            // AddBlatantButton
-            // 
-            this.AddBlatantButton.Location = new System.Drawing.Point(531, 382);
-            this.AddBlatantButton.Name = "AddBlatantButton";
-            this.AddBlatantButton.Size = new System.Drawing.Size(75, 23);
-            this.AddBlatantButton.TabIndex = 8;
-            this.AddBlatantButton.Text = "Add Blatant";
-            this.AddBlatantButton.UseMnemonic = false;
-            this.AddBlatantButton.UseVisualStyleBackColor = true;
-            this.AddBlatantButton.Click += new System.EventHandler(this.AddBlatantButton_Click);
-            // 
-            // AddLatentButton
-            // 
-            this.AddLatentButton.Location = new System.Drawing.Point(612, 382);
-            this.AddLatentButton.Name = "AddLatentButton";
-            this.AddLatentButton.Size = new System.Drawing.Size(75, 23);
-            this.AddLatentButton.TabIndex = 9;
-            this.AddLatentButton.Text = "AddLatent";
-            this.AddLatentButton.UseVisualStyleBackColor = true;
-            this.AddLatentButton.Click += new System.EventHandler(this.AddLatentButton_Click);
-            // 
             // Locationlabel
             // 
             this.Locationlabel.AutoSize = true;
@@ -129,20 +105,6 @@ namespace Serum_Roller
             this.Locationlabel.Size = new System.Drawing.Size(94, 13);
             this.Locationlabel.TabIndex = 11;
             this.Locationlabel.Text = "Random Location:";
-            // 
-            // AdditionColourSelect
-            // 
-            this.AdditionColourSelect.FormattingEnabled = true;
-            this.AdditionColourSelect.Items.AddRange(new object[] {
-            "Blue",
-            "Green",
-            "Orange",
-            "Pink",
-            "Purple"});
-            this.AdditionColourSelect.Location = new System.Drawing.Point(531, 349);
-            this.AdditionColourSelect.Name = "AdditionColourSelect";
-            this.AdditionColourSelect.Size = new System.Drawing.Size(156, 21);
-            this.AdditionColourSelect.TabIndex = 12;
             // 
             // LocationResultLabel
             // 
@@ -222,10 +184,7 @@ namespace Serum_Roller
             this.Controls.Add(this.historylabel);
             this.Controls.Add(this.SerumArchive);
             this.Controls.Add(this.LocationResultLabel);
-            this.Controls.Add(this.AdditionColourSelect);
             this.Controls.Add(this.Locationlabel);
-            this.Controls.Add(this.AddLatentButton);
-            this.Controls.Add(this.AddBlatantButton);
             this.Controls.Add(this.SizeLocationButton);
             this.Controls.Add(this.TFLocationButton);
             this.Controls.Add(this.SerumIDField);
@@ -248,10 +207,7 @@ namespace Serum_Roller
         private System.Windows.Forms.TextBox SerumIDField;
         private System.Windows.Forms.Button TFLocationButton;
         private System.Windows.Forms.Button SizeLocationButton;
-        private System.Windows.Forms.Button AddBlatantButton;
-        private System.Windows.Forms.Button AddLatentButton;
         private System.Windows.Forms.Label Locationlabel;
-        private System.Windows.Forms.ComboBox AdditionColourSelect;
         private System.Windows.Forms.Label LocationResultLabel;
         private System.Windows.Forms.ListBox SerumArchive;
         private System.Windows.Forms.Label historylabel;

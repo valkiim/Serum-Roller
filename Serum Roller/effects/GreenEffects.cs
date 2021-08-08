@@ -16,17 +16,17 @@ namespace Serum_Roller.effects
             List<string[]> BlatantEffects = new List<string[]>();
             List<string[]> LatentEffects = new List<string[]>();
             //Blatants
-            BlatantEffects.Add(new string[] { "rightNow", "removeAspect", "notNatHighest" });
-            BlatantEffects.Add(new string[] { "addAspect", "Red Fox", "N", "growNew", "Red Fox", "Tail" });
-            BlatantEffects.Add(new string[] { "addAspect", "Kobold", "Y" });
-            BlatantEffects.Add(new string[] { "addAspect", "Green Anaconda", "Y" });
+            BlatantEffects.Add(new string[] { "rightNow", "removeAspect", "lowest" });
+            BlatantEffects.Add(new string[] { "applyAspect", "Red Fox", "N", "growNew", "Red Fox", "Tail" });
+            BlatantEffects.Add(new string[] { "applyAspect", "Kobold", "Y" });
+            BlatantEffects.Add(new string[] { "applyAspect", "Green Anaconda", "Y" });
             BlatantEffects.Add(new string[] { "transform", "random", "highest" });
-            BlatantEffects.Add(new string[] { "addAspect", "random", "random" });
+            BlatantEffects.Add(new string[] { "applyAspect", "random", "Y" });
             BlatantEffects.Add(new string[] { "rightNow", "removeAspect", "lowest", "addAspect", "highest", "Y" });
             BlatantEffects.Add(new string[] { "growNew", "natural", "random" });
             BlatantEffects.Add(new string[] { "transform", "Paven", "wings", "addAspect", "Paven", "N" });
             BlatantEffects.Add(new string[] { "transform", "Giraffe", "head", "addAspect", "Giraffe", "N" });
-            BlatantEffects.Add(new string[] { "addAspect", "Dragon", "N", "transform", "Dragon", "wings" });
+            BlatantEffects.Add(new string[] { "applyAspect", "Dragon", "N", "transform", "Dragon", "wings" });
             //Latents
             string[] latentlist = new string[11];
             LatentEffects.Add(new string[] { "nextGreen", "replaceBothWith", "Pink" });

@@ -84,6 +84,8 @@
     <Compile Include="SerumDetails.Designer.cs">
       <DependentUpon>SerumDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="SerumID.cs" />
+    <Compile Include="SerumIDHandler.cs" />
     <Compile Include="UserLog.cs" />
     <Compile Include="UserUi.cs">
       <SubType>Form</SubType>

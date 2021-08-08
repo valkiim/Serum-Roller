@@ -14,8 +14,8 @@ namespace Serum_Roller.effects
     {
         public conditionForm(string input)
         {
-            conditionLabel.Text = input;
             InitializeComponent();
+            conditionLabel.Text = input;
         }
     }
 }

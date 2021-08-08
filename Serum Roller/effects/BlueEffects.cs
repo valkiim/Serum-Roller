@@ -18,7 +18,7 @@ namespace Serum_Roller
             //Blatants
             BlatantEffects.Add(new string[] { "decrease", "growthEff", "1" });
             BlatantEffects.Add(new string[] { "condition", "Does the subject willingly nullify a genital?", "shrink", "genital", "1", "else", "shrink", "height", "0.25" });
-            BlatantEffects.Add(new string[] { "decrease", "height", "0.15", "condition", "Does this reduce height below 12in?", "applyAspect", "Figurine", "N" });
+            BlatantEffects.Add(new string[] { "shrink", "height", "0.15", "condition", "Is the subject's height below 12in?", "applyAspect", "Figurine", "N" });
             BlatantEffects.Add(new string[] { "condition", "Any pressure applied to the subject will cause Shrinking!", "shrink", "height", "0.1"});
             BlatantEffects.Add(new string[] { "shrink", "penis", "0.2", "shrink", "penis", "0.2", "alternative", "shrink", "height", "0.2" });
             BlatantEffects.Add(new string[] { "shrink", "random", "0.1" });

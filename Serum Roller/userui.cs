@@ -52,7 +52,7 @@ namespace Serum_Roller
                 }
                 else
                 {
-                    string output = EH.RollResults(ParsedID);
+                    string output = "Subject consumes a " + SerumFamilySelect.Text + " serum!\n" + EH.RollResults(ParsedID) + "\nEffects processed!";
 
                     ApplySerum(output);
                 }
@@ -62,7 +62,7 @@ namespace Serum_Roller
                 
                 int blatant = Die.roll();
                 int latent = Die.roll();
-                string output = EH.RollResults(new SerumID(input, blatant, latent))+" roll processed!";
+                string output = "Subject consumes a "+ SerumFamilySelect.Text+" serum!\n"+ EH.RollResults(new SerumID(input, blatant, latent))+"\nEffects processed!";
                 SerumIDField.Text = SerumID.GenerateID(input, blatant, latent);
                 ApplySerum(output);
             }

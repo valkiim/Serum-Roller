@@ -470,7 +470,10 @@ namespace Serum_Roller
             location = Eff[i + 1];
             if (location.Equals("random"))
             {
-                location = Locationhandler.SizeLocation(die.r1d6());
+                location = Locationhandler.SizeLocation(die.roll());
+            } else if (location.Equals("genital"))
+            {
+                location = Locationhandler.SizeLocation((die.r1d6() / 2) + 1);
             }
             numPercent = double.Parse(Eff[i + 2]);
             numPercent = subject.getAttribute("shrinkEff") * numPercent;
@@ -717,6 +720,7 @@ namespace Serum_Roller
         }
         private string pTimingTrigger(string[]  Eff, int i)
         {
+            if (Eff.Length <= i+2) { return ""; }
             if (Eff[i + 1].Equals("repeatBlatant"))
             {
                 string output = "";
